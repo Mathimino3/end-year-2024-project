@@ -1,0 +1,71 @@
+{
+  "regions": [
+    {
+      "name": "overworld",
+      "title": "Overworld",
+      "scenes": [
+        {
+          "name": "firstScene",
+          "title": "First Scene",
+          "backgroundImage": "",
+          "choices": [
+            { "text": "Do that", "action": "code" },
+            { "text": "Do that", "action": "code" },
+            { "text": "Do that", "action": "code" },
+            { "text": "Do that", "action": "code" }
+          ],
+          "content": {
+            "mobs": [],
+            "chests": [],
+            "breakablesBlocks": [],
+            "placablesBloks": []
+          }
+        }
+      ]
+    }
+  ],
+  "scenes": {
+    "room": {
+      "title": "Room",
+      "background-image": "https://bienalclosets.com/wp-content/uploads/2023/03/Teen-Room-Ideas.jpg",
+      "indication": "<p>Oh no! You got up late and your bus leaves in 2 minutes!<br>Quick, gather your things as fast as possible!</p>",
+      "items": ["phone", "bus-ticket"]
+    },
+    "hallway": {
+      "title": "Hallway",
+      "background-image": "https://www.ikea.com/images/a-white-platsa-series-of-wardrobes-and-cabinets-are-strategi-388ce5af9ea476584b66731a291405df.jpg",
+      "indication": "<p>You are almost ready! Quick, your bus is leaving in 1 minute!</p>",
+      "items": ["keys", "shoes"]
+    },
+    "door": {
+      "title": "Door",
+      "background-image": "https://www.homelane.com/blog/wp-content/uploads/2019/07/shutterstock_380413051-e1564033278637.jpg",
+      "interact-btn": { "text": "Open", "coord-x": "70px", "coord-y": "266px" },
+      "indication": "<p>Open the door using your keys.</p>",
+      "remove-items": "keys"
+    },
+    "bus-stop": {
+      "title": "Bus stop",
+      "background-image": "https://images.prismic.io/visiticeland/28c76407-e933-4828-a3b1-1b2b9e1d45a1_reykjavik%20bus%20l%C3%A6kjartorg%20straeto.jpg?ixlib=gatsbyFP&auto=compress%2Cformat&fit=max&rect=0%2C181%2C3500%2C1971&w=950&h=535",
+      "interact-btn": {
+        "text": "Give your ticket",
+        "coord-x": "322px",
+        "coord-y": "295px"
+      },
+      "indication": "<p>Give your ticket to the driver</p>",
+      "remove-items": "bus-ticket"
+    },
+    "end": {
+      "title": "The end",
+      "background-image": "https://fastly.4sqi.net/img/general/600x600/82906588_r8mo8aEX85m9VPzyeIYFuVyDsYpVsmcDdiMVH07wMSM.jpg",
+      "indication": "<p>You nailed it!<br>:)</p>"
+    }
+  },
+  "timer": {
+    "hasStarted": true,
+    "start": 1714418474,
+    "hasEnded": true,
+    "elapsedTime": 124,
+    "bestTime": 6
+  }
+}
