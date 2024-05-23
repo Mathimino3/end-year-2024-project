@@ -1,10 +1,8 @@
 <?php
 session_start();
-//teste enfaiten
-$inventory = json_decode(file_get_contents("/inventory/inventory.json"), true);
-$recipes = json_decode(file_get_contents("/inventory/craft/recipes.json"), true);
+$inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
+$recipes = json_decode(file_get_contents("./inventory/craft/recipes.json"), true);
 
-// require_once('./itemFn.php');
 ?>
 
 <!DOCTYPE html>
@@ -126,42 +124,3 @@ $recipes = json_decode(file_get_contents("/inventory/craft/recipes.json"), true)
 </body>
 
 </html>
-
-<?php
-
-// function createItems($itemName, $count, $i = null)
-// {
-//     $inventory = $GLOBALS["inventory"];
-//     $formatedItemName = formatItemName($itemName);
-//     $action = '';
-//     if ($inventory["mouse"]["item"] === "" && $inventory["mouse"]["count"] === 0) {
-//         $action =  'takeItem';
-//     } else {
-//         $action = 'putItem';
-//     }
-
-
-
-//     //    href="router.php?action=' . $action . '&inventorySlot=' . $i . '"
-//     return '<a 
-//     class="item" id="inventory-' . $i . '">
-//                 <img src="./assets/textures/' . str_replace("minecraft:", "", $itemName) .  '.png">
-//                 <span class="item-count">' . $count . '</span>
-//                 <div class="item-tooltip hidden">
-//                     <span class="item-name">' . $formatedItemName . '</span>
-//                 </div>
-//              </a>';
-// }
-
-// function formatItemName($itemName)
-// {
-//     $newItemName = str_replace("minecraft:", "", $itemName);
-//     $newItemName = str_replace("_", " ", $newItemName);
-//     $newItemName[0] = strtoupper($newItemName[0]);
-//     for ($l = 0; $l < strlen($newItemName); $l++) {
-//         if ($newItemName[$l] === " " && isset($newItemName[$l + 1])) {
-//             $newItemName[$l + 1] = strtoupper($newItemName[$l + 1]);
-//         }
-//     }
-//     return $newItemName;
-// }
