@@ -1,0 +1,2 @@
+"items-texture": "https://mcasset.cloud/1.16.1/assets/minecraft/textures/item",
+  "items-list": "https://github.com/Articdive/ArticData"
