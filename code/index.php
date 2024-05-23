@@ -1,5 +1,6 @@
 <?php
 session_start();
+//teste enfaiten
 $inventory = json_decode(file_get_contents("/inventory/inventory.json"), true);
 $recipes = json_decode(file_get_contents("/inventory/craft/recipes.json"), true);
 
