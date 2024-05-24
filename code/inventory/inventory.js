@@ -23,7 +23,7 @@ function updateInv() {
     if (inventory["inventory"][i]["item"] !== "") {
       //If there is an item at that location in the inventory's json =>
       //show that item
-      cell.appendChild(createItem(inventory["inventory"][i]["item"],inventory["inventory"][i]["count"],i));
+      cell.appendChild(createItem("inventory", inventory["inventory"][i]["item"],inventory["inventory"][i]["count"],i));
     }
     cell.id = `inventory-${i}`;
   }
@@ -71,20 +71,20 @@ window.addEventListener("mousemove", (e) => {
   itemInMouse.style.top = `${e.clientY - itemInMouse.offsetHeight}px`;
 });
 
-function createItem(itemName, count, index=null) {
+function createItem(location, itemName, count, index=null) {
   //Function the return the html object of an item
   const a = document.createElement("a");
   a.classList.add("item", itemName);
   //Handeling items taht are at a number of 0 or less (removing them from existance)
   if(count <= 0){
-    inventory["inventory"][index] = {"item": "","count": 0}
+    inventory[location][index] = {"item": "","count": 0}
     writeJson("./inventory/inventory.json", inventory);
     return a
   }
   //Handeling items whose count is higher than the max
   if(count > maxStackSize){
     count = maxStackSize
-    inventory["inventory"][index]["count"] = count;
+    inventory[location][index]["count"] = count;
     writeJson("./inventory/inventory.json", inventory); 
   }
 
@@ -224,3 +224,56 @@ function writeJson(file, data) { //(async)
   //(the file argument need to be relative to writeJson.php location)
   phpExecuter.src = `../writeJson.php?file=${file}&data=${JSON.stringify(data)}`;
 }
+
+//Crafting
+function createCraftGrid(){
+  const craftGrid = document.querySelector(".craft-grid");
+  // for(let c = 0; c<8; c++){
+  //   const cell = document.createElement("div");
+  //     cell.classList.add("cell");
+  //     craftGrid.appendChild(cell);
+  // }
+
+  for (let rowNbr = 0; rowNbr < 3; rowNbr++){
+              // iterating through the 3 row of the crafting table
+              const row = inventory["craft"]["table"][rowNbr];
+
+              //creating the slots
+              inventory["craft"]["table"][rowNbr].forEach((mcItem, rowItemIndex)=>{
+                let gridIndex = 0;
+                if(rowNbr === 0){
+                  gridIndex =rowItemIndex;
+                }else if(rowNbr === 1){
+                  gridIndex =rowItemIndex+3;
+                }else if(rowNbr === 2){
+                  gridIndex =rowItemIndex+6
+                }
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.id = `craft-${gridIndex}`;
+
+              if(inventory["craft"]["table"][rowNbr][rowItemIndex]["item"] !== "" && inventory["craft"]["table"][rowNbr][rowItemIndex]["count"] !== 0){
+                createItem(inventory["craft"]["table"][rowNbr][rowItemIndex]["item"], inventory["craft"]["table"][rowNbr][rowItemIndex]["count"], gridIndex)
+              }
+
+                //Setting cell id
+                
+                craftGrid.appendChild(cell);
+              })
+                  // <div class="slot"><img src="./assets/textures/<?php echo str_replace("minecraft:", "", $craft["table"][$rowNbr][$i]) ?>.png" alt="">
+          
+  }
+  
+  //Creating the fat arrow
+  const fatArrow = document.createElement("img");
+  fatArrow.src ="../assets/img/fat_arrow.png";
+  fatArrow.classList.add("fat-arrow")
+  document.querySelector('.craft-grid-container').appendChild(fatArrow)
+
+  const resultCell = document.createElement("div")
+  resultCell.classList.add("result-cell", "cell")
+  resultCell.style.height = `${document.querySelector("#inventory-0").offsetHeight}px`
+  document.querySelector('.craft-grid-container').appendChild(resultCell)
+
+}
+createCraftGrid()

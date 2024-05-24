@@ -1,7 +1,7 @@
 <?php
 session_start();
 $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
-$recipes = json_decode(file_get_contents("./inventory/craft/recipes.json"), true);
+$recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 
 ?>
 
@@ -93,18 +93,20 @@ $recipes = json_decode(file_get_contents("./inventory/craft/recipes.json"), true
         <div class="craft-grid-container">
             <h2 class="storage-title craft-title">Crafting</h2>
             <div class="craft-grid">
-                <?php for ($i = 0; $i < 9; $i++) : ?>
-                    <div class="cell inventory-cell">
-                        <!-- <div class="item">
+                <?php //for ($i = 0; $i < 9; $i++) : 
+                ?>
+                <!-- <div class="cell inventory-cell"> -->
+                <!-- <div class="item">
                             <img src="https://minecraft.wiki/images/Diamond_Pickaxe_JE3_BE3.png?7409d" alt="">
                         </div> -->
-                    </div>
-                <?php endfor; ?>
+                <!-- </div> -->
+                <?php //endfor; 
+                ?>
             </div>
-            <div class="fat-arrow">
+            <!-- <div class="fat-arrow">
                 <img src="./assets/img/fat_arrow.png" alt="">
-            </div>
-            <div class="result-cell cell"></div>
+            </div> -->
+            <!-- <div class="result-cell cell"></div> -->
         </div>
     </div>
 
