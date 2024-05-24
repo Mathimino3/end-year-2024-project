@@ -1,12 +1,13 @@
 import inventory from "./inventory.json" with { type: "json" };
 
 //Creating the inventory
-const inventoryGrid = document.querySelector(".inventory-grid");
-const phpExecuter = document.querySelector(".php-executer");
+const inventoryGrid = document.querySelector(".inventory-grid"); //parrent of the inventory cells
+const phpExecuter = document.querySelector(".php-executer");//iframe that run php code
 const itemInMouse = document.querySelector(".item-in-mouse");
 
 const maxStackSize = 64;
 
+//Disabling context menu
 document.querySelectorAll('*').forEach(a => {
   a.addEventListener("contextmenu", (e)=>{e.preventDefault()});
 });
@@ -28,16 +29,18 @@ function updateInv() {
   }
   
   const cells = document.querySelectorAll(".cell");
-    //Handeling clicks on items
+    //Handeling clicks on cells
   cells.forEach((cell, cellIndex) =>{    
     cell.addEventListener("mouseup", (e) => {
       console.log('clicked cell: ' + cellIndex);
       if (typeof cell.children[0] !== "undefined" && inventory["mouse"]["item"] === "" && inventory["mouse"]["count"] === 0) {
         // If there is an item in the cell and there isn't already an item in the mouse =>
           takeItem(cellIndex, e.button);
-      } else if ((typeof cell.children[0] === "undefined" || cell.children[0].classList.contains(inventory["mouse"]["item"])) && inventory["mouse"]["count"] !== 0) {
+      } else if ((typeof cell.children[0] === "undefined" || cell.children[0].classList.contains(inventory["mouse"]["item"])) && inventory["mouse"]["item"] !== "" && inventory["mouse"]["count"] !== 0) {
+        //If the cell is empty or has the same item as the mouse in it and the mouse isn't empty =>
         putItem(cellIndex, e.button);
       }else if(inventory['mouse']["item"] !== "" && inventory['mouse']["count"] !== 0 && typeof cell.children[0] !== "undefined" && !cell.children[0].classList.contains(inventory["mouse"]["item"])){
+        //If there is different items in the mouse and the cell =>
         switchItems(cellIndex )
       }
     })
@@ -45,21 +48,23 @@ function updateInv() {
   );
 
   //Creating the item in the mouse
-
   if(inventory["mouse"]["item"] === "" && inventory["mouse"]["count"]=== 0){
+    //If the mouse is empty => hide it
     itemInMouse.style.display = 'none';
     return;
   }
   itemInMouse.style.display = 'block';
+  //Setting the image of the item in the mouse
   setItemImage(itemInMouse.children[0].children[0], inventory["mouse"]["item"])
   itemInMouse.children[0].children[1].innerText = inventory["mouse"]["count"];
   
-
+  //Setting a hight that relate to the other items height;
   const item = document.querySelectorAll(".item")[0];
-  itemInMouse.style.height = `${item.offsetHeight}px`//Setting a hight that relate to the cells' height;
+  itemInMouse.style.height = `${item.offsetHeight}px`
 
 }
 updateInv();
+
 //Making the item in the mouse follow the mouse
 window.addEventListener("mousemove", (e) => {
   itemInMouse.style.left = `${e.clientX - itemInMouse.offsetWidth/2}px`;
@@ -67,7 +72,7 @@ window.addEventListener("mousemove", (e) => {
 });
 
 function createItem(itemName, count, index=null) {
-  
+  //Function the return the html object of an item
   const a = document.createElement("a");
   a.classList.add("item", itemName);
   //Handeling items taht are at a number of 0 or less (removing them from existance)
@@ -76,18 +81,20 @@ function createItem(itemName, count, index=null) {
     writeJson("./inventory/inventory.json", inventory);
     return a
   }
+  //Handeling items whose count is higher than the max
   if(count > maxStackSize){
     count = maxStackSize
     inventory["inventory"][index]["count"] = count;
     writeJson("./inventory/inventory.json", inventory); 
   }
 
+  //Creating the img
   const img = document.createElement("img");
-  //Getting the image src
   img.classList.add('item-img')
   a.appendChild(img);
   setItemImage(img, itemName)
   
+  //Creating the count txt
   const span = document.createElement("span");
   span.classList.add("item-count");
   span.innerText = count;
@@ -102,12 +109,13 @@ function createItem(itemName, count, index=null) {
   itemTooltipName.classList.add('item-tooltip-name')
   itemTooltipName.innerText = formatItemName(itemName)
   itemTooltip.appendChild(itemTooltipName)
-  
-  //Handeling the display of tooltip
+
+  //Handeling the hover
   const itemHoverHandeler = document.createElement('div')
   itemHoverHandeler.classList.add('item-hover-handeler')
   a.appendChild(itemHoverHandeler)
   
+  //Handeling the display of tooltip
   itemHoverHandeler.addEventListener('mouseover', ()=>{
     itemTooltip.classList.remove("hidden")
   })
@@ -120,7 +128,6 @@ function createItem(itemName, count, index=null) {
 function setItemImage(img, itemName){
   img.src = `../assets/textures/${itemName.replace("minecraft:", "")}.png`;
   //Setting src if img not found
-
   img.onerror = () => {
     img.src = `../assets/textures/${itemName.replace("minecraft:", "")}_front.png`;
     img.onerror = () => {
@@ -142,8 +149,8 @@ function formatItemName(itemName) {
   return newItemName;
 }
 
-//Fct to take item from a cell to the mouse
 function takeItem(cellIndex, mouseBtn = null, amount = null) {
+  //Fct to take item from a cell to the mouse
   console.log("action: take");
   //The amount of item in the cell before we take them from it
   const initialAmount = inventory["inventory"][cellIndex]["count"]
@@ -196,6 +203,7 @@ function putItem(cellIndex, mouseBtn = null, amount = null) {
 }
 
 function switchItems(cellIndex){
+  //Fct that switch the item in the mouse and the one in the cell
   console.log("action: switch");
   const initialCellItem = inventory["inventory"][cellIndex]["item"]
   const initialCellCount = inventory["inventory"][cellIndex]["count"]
@@ -210,7 +218,7 @@ function switchItems(cellIndex){
 }
 
 function writeJson(file, data) { //(async)
-  //This code write data in a json file but, vanilla js can't write on local files for security reasons.
+  //This code writes data in a json file but, vanilla js can't write on local files for security reasons.
   //I also don't want the page to refresh.
   //So, the workaround is to create an iframe and to put the url of a php script that write on the json in the iframe's src tag
   //(the file argument need to be relative to writeJson.php location)
