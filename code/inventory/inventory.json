@@ -1,5 +1,6 @@
 {
   "inventory": [
+    { "item": "minecraft:bread", "count": 16 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "minecraft:bread", "count": 5 },
@@ -7,25 +8,24 @@
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
-    { "item": "minecraft:bread", "count": 3 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
-    { "item": "minecraft:diamond", "count": 32 },
+    { "item": "minecraft:diamond", "count": 1 },
+    { "item": "minecraft:diamond", "count": 64 },
     { "item": "", "count": 0 },
-    { "item": "minecraft:diamond", "count": 7 },
-    { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
+    { "item": "minecraft:bread", "count": 2 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
+    { "item": "minecraft:diamond", "count": 4 },
     { "item": "minecraft:bread", "count": 5 },
     { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
+    { "item": "minecraft:diamond", "count": 2 },
     { "item": "", "count": 0 },
     { "item": "minecraft:bread", "count": 29 },
-    { "item": "", "count": 0 },
+    { "item": "minecraft:bread", "count": 1 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
@@ -41,7 +41,7 @@
   "craft": {
     "table": [
       [
-        { "item": "minecraft:bread", "count": 3 },
+        { "item": "minecraft:diamond", "count": 10 },
         { "item": "", "count": 0 },
         { "item": "", "count": 0 }
       ],

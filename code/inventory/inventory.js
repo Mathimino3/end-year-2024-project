@@ -2,9 +2,9 @@ import inventory from "./inventory.json" with { type: "json" };
 
 //Creating the inventory
 const inventoryGrid = document.querySelector(".inventory-grid"); //parrent of the inventory cells
+const craftContainer = document.querySelector(".craft-grid-container");
 const phpExecuter = document.querySelector(".php-executer");//iframe that run php code
 const itemInMouse = document.querySelector(".item-in-mouse");
-
 const maxStackSize = 64;
 
 //Disabling context menu
@@ -12,13 +12,13 @@ document.querySelectorAll('*').forEach(a => {
   a.addEventListener("contextmenu", (e)=>{e.preventDefault()});
 });
 
-function updateInv() {
-  //(re)create the inventory
+function createInv(){
+//(re)create the inventory
 
   inventoryGrid.innerHTML = null;
   for (let i = 0; i < 36; i++) {
     const cell = document.createElement("div");
-    cell.classList.add("cell");
+    cell.classList.add("cell", "inventory-cell");
     inventoryGrid.appendChild(cell);
     if (inventory["inventory"][i]["item"] !== "") {
       //If there is an item at that location in the inventory's json =>
@@ -28,66 +28,120 @@ function updateInv() {
     cell.id = `inventory-${i}`;
   }
   
-  const cells = document.querySelectorAll(".cell");
+  const inventoryCells = document.querySelectorAll(".inventory-cell");
     //Handeling clicks on cells
-  cells.forEach((cell, cellIndex) =>{    
+  inventoryCells.forEach((cell, cellIndex) =>{    
     cell.addEventListener("mouseup", (e) => {
-      console.log('clicked cell: ' + cellIndex);
-      if (typeof cell.children[0] !== "undefined" && inventory["mouse"]["item"] === "" && inventory["mouse"]["count"] === 0) {
-        // If there is an item in the cell and there isn't already an item in the mouse =>
-          takeItem(cellIndex, e.button);
-      } else if ((typeof cell.children[0] === "undefined" || cell.children[0].classList.contains(inventory["mouse"]["item"])) && inventory["mouse"]["item"] !== "" && inventory["mouse"]["count"] !== 0) {
-        //If the cell is empty or has the same item as the mouse in it and the mouse isn't empty =>
-        putItem(cellIndex, e.button);
-      }else if(inventory['mouse']["item"] !== "" && inventory['mouse']["count"] !== 0 && typeof cell.children[0] !== "undefined" && !cell.children[0].classList.contains(inventory["mouse"]["item"])){
-        //If there is different items in the mouse and the cell =>
-        switchItems(cellIndex )
-      }
+      cellClick("inventory", e, cell, cellIndex)
     })
-  }
-  );
+  });
+}
 
-  //Creating the item in the mouse
-  if(inventory["mouse"]["item"] === "" && inventory["mouse"]["count"]=== 0){
-    //If the mouse is empty => hide it
-    itemInMouse.style.display = 'none';
-    return;
+function createCraftContainer(){
+  craftContainer.innerHTML = null; 
+  const craftGrid = document.createElement('div')  
+  craftGrid.classList.add("craft-grid");
+  for (let rowNbr = 0; rowNbr < 3; rowNbr++){
+              // iterating through the 3 row of the crafting table
+              const row = inventory["craft"]["table"][rowNbr];
+
+              //creating the slots
+              inventory["craft"]["table"][rowNbr].forEach((mcItem, rowItemIndex)=>{
+                let gridIndex = 0;
+                if(rowNbr === 0){
+                  gridIndex =rowItemIndex;
+                }else if(rowNbr === 1){
+                  gridIndex =rowItemIndex+3;
+                }else if(rowNbr === 2){
+                  gridIndex =rowItemIndex+6
+                }
+                const cell = document.createElement("div");
+                cell.classList.add("cell", "craft-cell");
+                //Setting cell id
+                cell.id = `craft-${gridIndex}`;
+                
+                if(inventory["craft"]["table"][rowNbr][rowItemIndex]["item"] !== "" && inventory["craft"]["table"][rowNbr][rowItemIndex]["count"] !== 0){
+                  cell.appendChild(createItem("craftTable", inventory["craft"]["table"][rowNbr][rowItemIndex]["item"], inventory["craft"]["table"][rowNbr][rowItemIndex]["count"], gridIndex))
+                }
+                craftGrid.appendChild(cell);
+              })
+                  // <div class="slot"><img src="./assets/textures/<?php echo str_replace("minecraft:", "", $craft["table"][$rowNbr][$i]) ?>.png" alt="">
   }
-  itemInMouse.style.display = 'block';
-  //Setting the image of the item in the mouse
-  setItemImage(itemInMouse.children[0].children[0], inventory["mouse"]["item"])
-  itemInMouse.children[0].children[1].innerText = inventory["mouse"]["count"];
-  
-  //Setting a hight that relate to the other items height;
-  const item = document.querySelectorAll(".item")[0];
-  itemInMouse.style.height = `${item.offsetHeight}px`
+  craftContainer.appendChild(craftGrid)
+
+  const craftCells = document.querySelectorAll(".craft-cell");
+      //Handeling clicks on cells
+    craftCells.forEach((cell, cellIndex) =>{    
+      cell.addEventListener("mouseup", (e) => {
+        // if(cell.classList.contains("inventory-cell")){
+        //   location = "inventory"
+        // } else if(cell.classList.contains("craft-cell")){
+        //   location = "craftTable"
+        // }
+        cellClick("craftTable", e, cell, cellIndex)
+      })
+    });
+
+  //Creating the fat arrow
+  const fatArrow = document.createElement("img");
+  fatArrow.src ="../assets/img/fat_arrow.png";
+  fatArrow.classList.add("fat-arrow")
+  craftContainer.appendChild(fatArrow)
+
+  const resultCell = document.createElement("div")
+  resultCell.classList.add("result-cell", "cell")
+  resultCell.style.height = `${document.querySelector("#inventory-0").offsetHeight}px`
+  craftContainer.appendChild(resultCell)
 
 }
-updateInv();
 
-//Making the item in the mouse follow the mouse
-window.addEventListener("mousemove", (e) => {
-  itemInMouse.style.left = `${e.clientX - itemInMouse.offsetWidth/2}px`;
-  itemInMouse.style.top = `${e.clientY - itemInMouse.offsetHeight}px`;
-});
+function cellClick(location, e, cell, cellIndex){
+  console.log('clicked cell: ' + cellIndex + " location: " + location);
+  if (typeof cell.children[0] !== "undefined" && inventory["mouse"]["item"] === "" && inventory["mouse"]["count"] === 0) {
+    // If there is an item in the cell and there isn't already an item in the mouse =>
+      takeItem(location, cellIndex, e.button);
+  } else if ((typeof cell.children[0] === "undefined" || cell.children[0].classList.contains(inventory["mouse"]["item"])) && inventory["mouse"]["item"] !== "" && inventory["mouse"]["count"] !== 0) {
+    //If the cell is e  mpty or has the same item as the mouse in it and the mouse isn't empty =>
+    putItem(location, cellIndex, e.button);
+  }else if(inventory['mouse']["item"] !== "" && inventory['mouse']["count"] !== 0 && typeof cell.children[0] !== "undefined" && !cell.children[0].classList.contains(inventory["mouse"]["item"])){
+    //If there is different items in the mouse and the cell =>
+    switchItems(location, cellIndex )
+  }
+}
 
 function createItem(location, itemName, count, index=null) {
-  //Function the return the html object of an item
   const a = document.createElement("a");
   a.classList.add("item", itemName);
+  //Function the return the html object of an item
+  
   //Handeling items taht are at a number of 0 or less (removing them from existance)
-  if(count <= 0){
-    inventory[location][index] = {"item": "","count": 0}
+  if(count <=0){
+    switch(location){
+      case "inventory":
+        inventory["inventory"][index] = {"item": "","count": 0}
+        break;
+      case "craftTable":
+        inventory["craft"]["table"][indexToCraftIndexTable(index)[0]][indexToCraftIndexTable(index)[1]] = {"item": "","count": 0}
+        break;
+      }
     writeJson("./inventory/inventory.json", inventory);
     return a
   }
+
   //Handeling items whose count is higher than the max
   if(count > maxStackSize){
     count = maxStackSize
-    inventory[location][index]["count"] = count;
+    switch(location){
+      case "inventory":
+        inventory["inventory"][index]["count"] = count;
+        break;
+      case "craftTable":
+        
+        inventory["craft"]["table"][indexToCraftIndexTable(index)[0]][indexToCraftIndexTable(index)[1]]["count"] = count
+        break;
+      }
     writeJson("./inventory/inventory.json", inventory); 
   }
-
   //Creating the img
   const img = document.createElement("img");
   img.classList.add('item-img')
@@ -149,31 +203,66 @@ function formatItemName(itemName) {
   return newItemName;
 }
 
-function takeItem(cellIndex, mouseBtn = null, amount = null) {
+function takeItem(location, cellIndex, mouseBtn = null, amount = null) {
   //Fct to take item from a cell to the mouse
   console.log("action: take");
+
   //The amount of item in the cell before we take them from it
-  const initialAmount = inventory["inventory"][cellIndex]["count"]
+  let initialAmount = null;
+  //The item in the cell nefore we take it from it
+  let itemInCell = null;
+  //The "coordinates" to get to the item if in crafting table (2D array)
+  let craftTableX = null;
+  let craftTableY = null;
+
+  //Setting the variables according to the location of the item
+  switch(location){
+    case "inventory":
+      initialAmount = inventory["inventory"][cellIndex]["count"]
+      itemInCell = inventory["inventory"][cellIndex]["item"];
+      break;
+    case "craftTable":
+      craftTableX = indexToCraftIndexTable(cellIndex)[0];
+      craftTableY = indexToCraftIndexTable(cellIndex)[1];
+
+      initialAmount = inventory["craft"]["table"][craftTableX][craftTableY]["count"];
+      itemInCell = inventory["craft"]["table"][craftTableX][craftTableY]["item"];
+      break;
+  }
+
   //The amount of item we are taking
   let amountToTake = initialAmount
   if(mouseBtn === 2){
     //Only take the half of the item if right click
     amountToTake = Math.round(initialAmount/2)
   }
-  inventory["mouse"]["item"] = inventory["inventory"][cellIndex]["item"];
+  inventory["mouse"]["item"] = itemInCell;
   inventory["mouse"]["count"] = amountToTake;
   //The amount of items left in the cell at the end
   const finalAmount = initialAmount-amountToTake
-  if(finalAmount === 0){
-    inventory["inventory"][cellIndex]["item"] = "";
+
+  //Removing the item from his cell according to his location
+  switch(location){
+    case "inventory":
+      if(finalAmount === 0){
+        inventory["inventory"][cellIndex]["item"] = "";
+      }
+      inventory["inventory"][cellIndex]["count"] = finalAmount;
+      break;
+    case "craftTable":
+      if(finalAmount === 0){
+        inventory["craft"]["table"][craftTableX][craftTableY]["item"] = "";
+      }
+      inventory["craft"]["table"][craftTableX][craftTableY]["count"] = finalAmount;
+      break;
   }
-  inventory["inventory"][cellIndex]["count"] = finalAmount;
+  
   writeJson("./inventory/inventory.json", inventory);
-  updateInv();
+  updateAll();
 }
 
 //Fct to put item from the mouse to a cell
-function putItem(cellIndex, mouseBtn = null, amount = null) {
+function putItem(location, cellIndex, mouseBtn = null, amount = null) {
   console.log("action: put");
   const initialCellAmount = inventory["inventory"][cellIndex]["count"]
   //The  amount of items in the mouse before with put them in a cell
@@ -199,10 +288,10 @@ function putItem(cellIndex, mouseBtn = null, amount = null) {
   }
   inventory["mouse"]["count"] = finalMouseAmount;
   writeJson("./inventory/inventory.json", inventory);
-  updateInv();  
+  updateAll();  
 }
 
-function switchItems(cellIndex){
+function switchItems(location, cellIndex){
   //Fct that switch the item in the mouse and the one in the cell
   console.log("action: switch");
   const initialCellItem = inventory["inventory"][cellIndex]["item"]
@@ -214,7 +303,7 @@ function switchItems(cellIndex){
   inventory["mouse"]["item"] = initialCellItem;
   inventory["mouse"]["count"] = initialCellCount;
   writeJson("./inventory/inventory.json", inventory);
-  updateInv();
+  updateAll();
 }
 
 function writeJson(file, data) { //(async)
@@ -225,55 +314,45 @@ function writeJson(file, data) { //(async)
   phpExecuter.src = `../writeJson.php?file=${file}&data=${JSON.stringify(data)}`;
 }
 
-//Crafting
-function createCraftGrid(){
-  const craftGrid = document.querySelector(".craft-grid");
-  // for(let c = 0; c<8; c++){
-  //   const cell = document.createElement("div");
-  //     cell.classList.add("cell");
-  //     craftGrid.appendChild(cell);
-  // }
-
-  for (let rowNbr = 0; rowNbr < 3; rowNbr++){
-              // iterating through the 3 row of the crafting table
-              const row = inventory["craft"]["table"][rowNbr];
-
-              //creating the slots
-              inventory["craft"]["table"][rowNbr].forEach((mcItem, rowItemIndex)=>{
-                let gridIndex = 0;
-                if(rowNbr === 0){
-                  gridIndex =rowItemIndex;
-                }else if(rowNbr === 1){
-                  gridIndex =rowItemIndex+3;
-                }else if(rowNbr === 2){
-                  gridIndex =rowItemIndex+6
-                }
-                const cell = document.createElement("div");
-                cell.classList.add("cell");
-                cell.id = `craft-${gridIndex}`;
-
-              if(inventory["craft"]["table"][rowNbr][rowItemIndex]["item"] !== "" && inventory["craft"]["table"][rowNbr][rowItemIndex]["count"] !== 0){
-                createItem(inventory["craft"]["table"][rowNbr][rowItemIndex]["item"], inventory["craft"]["table"][rowNbr][rowItemIndex]["count"], gridIndex)
-              }
-
-                //Setting cell id
-                
-                craftGrid.appendChild(cell);
-              })
-                  // <div class="slot"><img src="./assets/textures/<?php echo str_replace("minecraft:", "", $craft["table"][$rowNbr][$i]) ?>.png" alt="">
-          
+function indexToCraftIndexTable(index){
+  //Function to convert a regular index to access an item in a grid to ones that work for the crafting table
+  //since the craft grid is a 2 dimentional array while the regulars grid are simple ones.
+  let rowNbr = Math.trunc(index/3);
+  let rowItemIndex = null;
+  if(index === 0 || index === 3 || index === 6){
+    rowItemIndex = 0;
+  }else if(index === 1 || index === 4 || index === 7){
+    rowItemIndex = 1;
+  }else if(index === 2 || index === 5 || index === 8){
+    rowItemIndex = 2;
   }
-  
-  //Creating the fat arrow
-  const fatArrow = document.createElement("img");
-  fatArrow.src ="../assets/img/fat_arrow.png";
-  fatArrow.classList.add("fat-arrow")
-  document.querySelector('.craft-grid-container').appendChild(fatArrow)
-
-  const resultCell = document.createElement("div")
-  resultCell.classList.add("result-cell", "cell")
-  resultCell.style.height = `${document.querySelector("#inventory-0").offsetHeight}px`
-  document.querySelector('.craft-grid-container').appendChild(resultCell)
-
+  //[x, y]
+  return [rowNbr, rowItemIndex];
 }
-createCraftGrid()
+
+function updateAll() {
+  createInv()
+  createCraftContainer()  
+
+  //Creating the item in the mouse
+  if(inventory["mouse"]["item"] === "" && inventory["mouse"]["count"]=== 0){
+    //If the mouse is empty => hide it
+    itemInMouse.style.display = 'none';
+    return;
+  }
+  itemInMouse.style.display = 'block';
+  //Setting the image of the item in the mouse
+  setItemImage(itemInMouse.children[0].children[0], inventory["mouse"]["item"])
+  itemInMouse.children[0].children[1].innerText = inventory["mouse"]["count"];
+  
+  //Setting a hight that relate to the other items height;
+  const item = document.querySelectorAll(".item")[0];
+  itemInMouse.style.height = `${item.offsetHeight}px`
+
+  //Making the item in the mouse follow the mouse
+  window.addEventListener("mousemove", (e) => {
+    itemInMouse.style.left = `${e.clientX - itemInMouse.offsetWidth/2}px`;
+    itemInMouse.style.top = `${e.clientY - itemInMouse.offsetHeight}px`;
+  });
+}
+updateAll();
