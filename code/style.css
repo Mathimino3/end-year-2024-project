@@ -258,7 +258,7 @@ body::backdrop {
 
 .craft-title {
   left: 0;
-  top: -1.7rem;
+  top: -2rem;
 }
 
 .craft-grid {
@@ -292,6 +292,7 @@ body::backdrop {
 
 .result-cell {
   border: solid 4px #b8b9c4;
+  padding: 0;
 }
 
 .item {
