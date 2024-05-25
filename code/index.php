@@ -2,7 +2,7 @@
 session_start();
 $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
 $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
-
+//oui
 ?>
 
 <!DOCTYPE html>
