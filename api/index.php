@@ -1,7 +1,7 @@
 <?php
 session_start();
 $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
-$recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
+// $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 //oui
 ?>
 
@@ -15,6 +15,7 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
         maximum-scale=1.0, user-scalable=no">
     <script src="./display.js" defer></script>
     <script src="./inventory/inventory.js" type="module" defer></script>
+    <script src="./inventory/craft/craft.js" type="module" defer></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="style.css">
     <title>Game</title>
@@ -22,7 +23,7 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 
 <body>
 
-    <div class="btn-separator first-btn-separator mobile-separator">
+    <div class="btn-separator first-btn-separatsor mobile-separator">
 
         <div class="inventory-btn  btn">
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
