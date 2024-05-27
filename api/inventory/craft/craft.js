@@ -1,49 +1,46 @@
-import inventory from "../inventory.json" assert { type: "json" };
-import recipesBook from "./recipes.json" assert { type: "json" };
-import tags from "./tags.json" assert { type: "json" };
+import recipesBook from "./recipes.json" with { type: "json" };
+import tags from "./tags.json" with { type: "json" };
 
 const recipeKeys = Object.keys(recipesBook);
 // const craftCells = document.querySelectorAll(".craft-cell");
 // craftCells.forEach((cell, cellIndex) => {
 //   cell.addEventListener("mouseup", () => {
-//     console.log("caca");
 //     checkCraft();
 //   });
 // });
 
-function itemsInTable() {
+function getItemsInTable() {
   //To get the list of the differents items that are currently in the table
-  let itemsInTheTable = [];
-  inventory["craftTable"].foreach((row) => {
-    row.foreach((rowItem) => {
-      if (rowItem !== "" && !itemsInTheTable.includes(rowItem)) {
-        array_push(itemsInTheTable, rowItem);
+  let itemsInTable = [];
+  inventory["craftTable"].forEach((row) => {
+    row.forEach((rowItem) => {
+      if (rowItem["item"] !== "" && !itemsInTable.includes(rowItem["item"])) {
+        itemsInTable.push(rowItem["item"]);
       }
     });
   });
-  return itemsInTheTable;
+  return itemsInTable;
 }
 
-function nbrOfItemsInTable() {
+function getNbrOfItemsInTable() {
   //To get the number of items in the table (occupied slots)
   let nbrOfItems = 0;
-  inventory["craftTable"].foreach((row) => {
-    row.foreach((rowItem) => {
-      if (rowItem !== "") {
+  inventory["craftTable"].forEach((row) => {
+    row.forEach((rowItem) => {
+      if (rowItem["item"] !== "") {
         nbrOfItems++;
       }
     });
   });
   return nbrOfItems;
 }
-console.log(nbrOfItemsInTable());
 
-function checkCraft() {
-  // const itemsInTheTable = itemsInTable(craft);
+export default function checkCraft() {
+  const itemsInTable = getItemsInTable();
   recipeLoop: for (let i = 0; i < recipeKeys.length; i++) {
     const itemKey = recipeKeys[i];
     const mcItem = recipesBook[itemKey];
-    const nbrOfItemsInTable = nbrOfItemsInTable();
+    const nbrOfItemsInTable = getNbrOfItemsInTable();
 
     let nbrOfIgredients = null; //The number of ingredients in the shapeless recipe
     if (typeof mcItem["ingredients"] !== "undefined") {
@@ -85,39 +82,50 @@ function checkCraft() {
         }
       }
       //break recipeLoop lead to here
-      console.log("ismatch: " + isMatch);
       if (isMatch === true) {
         //when we've check every items and they are all ===
         return mcItem["result"]["item"].replace("minecraft:", "");
       }
     }
-    // // If the recipe doesn't use a pattern (shapeless) and if there is as much items in the table as ingredients in the recipe
-    // else if (mcItem["type"] === "minecraft:crafting_shapeless" && nbrOfIgredients === nbrOfItemsInTable) {
-    //     foreach ($mcItem["ingredients"] as $j => $ingredient) { //Iterating trough the ingredients
-    //         if (isset($ingredient["item"]) && in_array($ingredient["item"], $itemsInTheTable)) { //If the recipe doesnt'use tags and is in the table =>
-    //             continue; //check the next one (there is only one but we never know)
-    //         } elseif (isset($ingredient["tag"])) { // If the recipe use tags =>
-    //             foreach ($itemsInTheTable as $g => $itemInTable) {
-    //                 if (in_array($itemInTable, $tags[$ingredient["tag"]]["values"])) { //check if the item in the crafting table is in the array of that tag =>
-    //                     continue; //check the next one
-    //                 } else {
-    //                     $isMatch = false; // if not =>
-    //                     break 2; //try with the next recipe
-    //                 }
-    //             }
-    //         } else {
-    //             $isMatch = false; // if not =>
-    //             break; //try with the next recipe
-    //         }
-    //     }
-    //     if ($isMatch !== false) {
-    //         return str_replace("minecraft:", "", $mcItem["result"]["item"]);
-    //     }
-    // }
+    // If the recipe doesn't use a pattern (shapeless) and if there is as much items in the table as ingredients in the recipe
+    else if (
+      mcItem["type"] === "minecraft:crafting_shapeless" &&
+      nbrOfIgredients === nbrOfItemsInTable
+    ) {
+      ingredientsLoop: for (let j = 0; j < mcItem["ingredients"].length; j++) {
+        const ingredient = mcItem["ingredients"][j]; //Iterating trough the ingredients;
+        if (
+          typeof ingredient["item"] !== "undefined" &&
+          itemsInTable.includes(ingredient["item"])
+        ) {
+          //If the recipe doesnt'use tags and is in the table =>
+          continue ingredientsLoop; //check the next one
+        } else if (typeof ingredient["tag"] !== "undefined") {
+          // If the recipe use tags =>
+          tagsLoop: for (let g = 0; g < itemsInTable.length; g++) {
+            const itemInTable = itemsInTable[g];
+            if (tags[ingredient["tag"]]["values"].includes(itemInTable)) {
+              //check if the item in the crafting table is in the array of that tag =>
+              continue tagsLoop; //check the next one
+            } else {
+              isMatch = false; // if not =>
+              break ingredientsLoop; //try with the next recipe
+            }
+          }
+        } else {
+          isMatch = false; // if not =>
+          break ingredientsLoop; //try with the next recipe
+        }
+      }
+      if (isMatch === true) {
+        return mcItem["result"]["item"].replace("minecraft:", "");
+      }
+    }
   }
   return "null";
 }
 
 // checkCraft();
 // export default checkCraft();
-console.log("result: " + checkCraft());
+// console.log("result: " + checkCraft());
+// export default checkCraft()
