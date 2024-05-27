@@ -40,6 +40,7 @@ function checkCraft() {
             typeof rowItem === "array" &&
             typeof rowItem["tag"] !== "undefined"
           ) {
+            console.log("item is tag");
             //If the item is a tag  =>
             if (
               tags[rowItem["tag"]]["values"].includes(
@@ -59,6 +60,7 @@ function checkCraft() {
         }
       }
       //break recipeLoop lead to here
+      console.log("ismatch: " + isMatch);
       if (isMatch !== false) {
         //when we've check every items and they are all ===
         return mcItem["result"]["item"].replace("minecraft:", "");

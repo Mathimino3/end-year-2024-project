@@ -1,7 +1,7 @@
 <?php
 session_start();
 $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
-// $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
+$recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 //oui
 ?>
 
@@ -23,7 +23,7 @@ $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
 
 <body>
 
-    <div class="btn-separator first-btn-separatsor mobile-separator">
+    <div class="btn-separator first-btn-separator mobile-separator">
 
         <div class="inventory-btn  btn">
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
