@@ -83,10 +83,13 @@ function createCraftContainer(){
   craftContainer.appendChild(craftGrid)
 
   //Getting the result of the craft and saving it to the json
-  const craftResult = checkCraft();
-  if(craftResult !== ""){
+  const craftResult = checkCraft()[0];
+  const craftResultCount = checkCraft()[1]
+  console.log("craftResult: " + craftResult);
+  console.log("craftResultCount: " + craftResultCount);
+  if(craftResult !== "" && craftResultCount !== 0){
     inventory["resultCell"][0]["item"] = craftResult;
-    inventory["resultCell"][0]["count"] = 1;
+    inventory["resultCell"][0]["count"] = craftResultCount;
   }else{
     inventory["resultCell"][0]["item"] = "";
     inventory["resultCell"][0]["count"] = 0;
@@ -111,8 +114,8 @@ function createCraftContainer(){
   resultCell.classList.add("result-cell", "cell")
   resultCell.style.height = `${document.querySelector("#craft-0").offsetHeight}px`
   //Show the item if there is a result to the craft
-  if(craftResult !== ""){
-    resultCell.appendChild(createItem("resultCell", craftResult, 1, 0))
+  if(craftResult !== "" && craftResultCount !== 0){
+    resultCell.appendChild(createItem("resultCell", craftResult, craftResultCount, 0))
   }
   craftContainer.appendChild(resultCell)
 
@@ -140,7 +143,6 @@ function cellClick(location, e, cell, cellIndex){
 }
 
 function createItem(location, itemName, count, index) {
-  console.log("creating " + itemName + " count " + count);
   const a = document.createElement("a");
   a.classList.add("item", itemName);
   //Function the return the html object of an item
@@ -268,8 +270,10 @@ function takeItem(location, cellIndex, mouseBtn = null) {
         inventory["craftTable"][craftTableX][craftTableY]["item"] = "";
       }
       inventory["craftTable"][craftTableX][craftTableY]["count"] = finalAmount;
+  }else if (location === "resultCell"){
+    removeItemsFromTable(amountToTake)
   }else{
-  if(finalAmount === 0){
+      if(finalAmount === 0){
         inventory[location][cellIndex]["item"] = "";
       }
       inventory[location][cellIndex]["count"] = finalAmount;
@@ -279,6 +283,13 @@ function takeItem(location, cellIndex, mouseBtn = null) {
   updateAll();
 }
 
+function removeItemsFromTable(count){
+  inventory["craftTable"].forEach((row)=>{
+    row.forEach((rowItem)=>{
+
+    })
+  })
+}
 //Fct to put item from the mouse to a cell
 function putItem(location, cellIndex, mouseBtn = null) {
   console.log("action: put");
@@ -467,8 +478,8 @@ function checkCraft() {
       //break recipeLoop lead to here
       if (isMatch === true) {
         //when we've check every items and they are all ===
-        // return mcItem["result"]["item"].replace("minecraft:", "");
-        return mcItem["result"]["item"];
+        return [mcItem["result"]["item"], getMinCount()];
+        //This line return [name of the item, count of the item]
       }
     }
     // If the recipe doesn't use a pattern (shapeless) and if there is as much items in the table as ingredients in the recipe
@@ -502,12 +513,14 @@ function checkCraft() {
         }
       }
       if (isMatch === true) {
-        // return mcItem["result"]["item"].replace("minecraft:", "");
-        return mcItem["result"]["item"];
+        //when we've check every items and they are all ===
+        return [mcItem["result"]["item"], getMinCount()];
+        //This line return [name of the item, count of the item]
       }
     }
   }
-  return "";
+  //No matches
+  return ["", 0];
 }
 
 function getItemsInTable() {
@@ -534,4 +547,17 @@ function getNbrOfItemsInTable() {
     });
   });
   return nbrOfItems;
+}
+
+function getMinCount(){
+  //Fct to get the smallest count that is in the crafting table
+  let countList = [];
+  inventory["craftTable"].forEach((row)=>{
+    row.forEach((rowItem)=>{
+      if(rowItem["count"] !== 0){
+        countList.push(rowItem["count"]);
+      }
+    })
+  })
+  return Math.min(...countList);
 }

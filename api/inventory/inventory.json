@@ -15,7 +15,7 @@
     { "item": "minecraft:diamond", "count": 52 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
+    { "item": "minecraft:stick", "count": 5 },
     { "item": "minecraft:acacia_log", "count": 1 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
@@ -24,7 +24,7 @@
     { "item": "minecraft:bread", "count": 5 },
     { "item": "", "count": 0 },
     { "item": "minecraft:stone_shovel", "count": 30 },
-    { "item": "", "count": 0 },
+    { "item": "minecraft:diamond_sword", "count": 10 },
     { "item": "minecraft:diamond_sword", "count": 1 },
     { "item": "minecraft:bread", "count": 28 },
     { "item": "", "count": 0 },
@@ -35,7 +35,7 @@
     { "item": "", "count": 0 },
     { "item": "minecraft:diamond_sword", "count": 1 },
     { "item": "minecraft:diamond_sword", "count": 1 },
-    { "item": "minecraft:diamond_sword", "count": 1 }
+    { "item": "minecraft:diamond_sword", "count": 21 }
   ],
   "mouse": { "item": "", "count": 0 },
   "craftTable": [
@@ -45,15 +45,15 @@
       { "item": "", "count": 0 }
     ],
     [
-      { "item": "minecraft:diamond", "count": 2 },
+      { "item": "minecraft:diamond", "count": 10 },
       { "item": "", "count": 0 },
       { "item": "", "count": 0 }
     ],
     [
-      { "item": "minecraft:stick", "count": 1 },
+      { "item": "minecraft:stick", "count": 5 },
       { "item": "", "count": 0 },
       { "item": "", "count": 0 }
     ]
   ],
-  "resultCell": [{ "item": "minecraft:diamond_sword", "count": 1 }]
+  "resultCell": [[]]
 }
