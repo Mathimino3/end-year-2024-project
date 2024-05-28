@@ -8,6 +8,7 @@ const craftContainer = document.querySelector(".craft-grid-container");
 const phpExecuter = document.querySelector(".php-executer");//iframe that run php code
 const itemInMouse = document.querySelector(".item-in-mouse");
 const maxStackSize = 64;
+const recipeKeys = Object.keys(recipesBook);
 
 //Disabling context menu
 document.querySelectorAll('*').forEach(a => {
@@ -81,20 +82,24 @@ function createCraftContainer(){
   }
   craftContainer.appendChild(craftGrid)
 
+  //Getting the result of the craft and saving it to the json
+  const craftResult = checkCraft();
+  if(craftResult !== ""){
+    inventory["resultCell"][0]["item"] = craftResult;
+    inventory["resultCell"][0]["count"] = 1;
+  }else{
+    inventory["resultCell"][0]["item"] = "";
+    inventory["resultCell"][0]["count"] = 0;
+  }
+  writeJson("./inventory/inventory.json", inventory);
+
   const craftCells = document.querySelectorAll(".craft-cell");
       //Handeling clicks on cells
-    let craftResult = null
     craftCells.forEach((cell, cellIndex) =>{    
       cell.addEventListener("mouseup", (e) => {
         cellClick("craftTable", e, cell, cellIndex)
-        craftResult = checkCraft();
-        console.log(craftResult);
       })
     });
-
-    if(craftResult !== null){
-      inventory["resultCell"]["item"] = craftResult;
-    }
 
   //Creating the fat arrow
   const fatArrow = document.createElement("img");
@@ -105,13 +110,14 @@ function createCraftContainer(){
   const resultCell = document.createElement("div")
   resultCell.classList.add("result-cell", "cell")
   resultCell.style.height = `${document.querySelector("#craft-0").offsetHeight}px`
+  //Show the item if there is a result to the craft
+  if(craftResult !== ""){
+    resultCell.appendChild(createItem("resultCell", craftResult, 1, 0))
+  }
   craftContainer.appendChild(resultCell)
 
   //If there is an item at that location in the resultCell json =>
   //show that item
-  if(inventory["resultCell"][0]["item"] !== "" && inventory["resultCell"][0]["count"] !== 0){
-    resultCell.appendChild(createItem("resultCell", inventory["resultCell"][0]["item"], inventory["resultCell"][0]["count"], 0))
-  }
   //Handeling click on the result cell
   resultCell.addEventListener("mouseup", (e)=>{
     cellClick("resultCell", e, resultCell, 0)
@@ -134,6 +140,7 @@ function cellClick(location, e, cell, cellIndex){
 }
 
 function createItem(location, itemName, count, index) {
+  console.log("creating " + itemName + " count " + count);
   const a = document.createElement("a");
   a.classList.add("item", itemName);
   //Function the return the html object of an item
@@ -384,7 +391,6 @@ function indexToCraftIndexTable(index){
 function updateAll() {
   createInv()
   createCraftContainer()  
-
   //Creating the item in the mouse
   if(inventory["mouse"]["item"] === "" && inventory["mouse"]["count"]=== 0){
     //If the mouse is empty => hide it
@@ -412,35 +418,7 @@ updateAll();
 //Crating///////////////////////////////////////////////////////////////
 
 
-const recipeKeys = Object.keys(recipesBook);
-
-function getItemsInTable() {
-  //To get the list of the differents items that are currently in the table
-  let itemsInTable = [];
-  inventory["craftTable"].forEach((row) => {
-    row.forEach((rowItem) => {
-      if (rowItem["item"] !== "" && !itemsInTable.includes(rowItem["item"])) {
-        itemsInTable.push(rowItem["item"]);
-      }
-    });
-  });
-  return itemsInTable;
-}
-
-function getNbrOfItemsInTable() {
-  //To get the number of items in the table (occupied slots)
-  let nbrOfItems = 0;
-  inventory["craftTable"].forEach((row) => {
-    row.forEach((rowItem) => {
-      if (rowItem["item"] !== "") {
-        nbrOfItems++;
-      }
-    });
-  });
-  return nbrOfItems;
-}
-
-export default function checkCraft() {
+function checkCraft() {
   const itemsInTable = getItemsInTable();
   recipeLoop: for (let i = 0; i < recipeKeys.length; i++) {
     const itemKey = recipeKeys[i];
@@ -489,7 +467,8 @@ export default function checkCraft() {
       //break recipeLoop lead to here
       if (isMatch === true) {
         //when we've check every items and they are all ===
-        return mcItem["result"]["item"].replace("minecraft:", "");
+        // return mcItem["result"]["item"].replace("minecraft:", "");
+        return mcItem["result"]["item"];
       }
     }
     // If the recipe doesn't use a pattern (shapeless) and if there is as much items in the table as ingredients in the recipe
@@ -523,15 +502,36 @@ export default function checkCraft() {
         }
       }
       if (isMatch === true) {
-        return mcItem["result"]["item"].replace("minecraft:", "");
+        // return mcItem["result"]["item"].replace("minecraft:", "");
+        return mcItem["result"]["item"];
       }
     }
   }
-  return null;
+  return "";
 }
 
-// checkCraft();
-// export default checkCraft();
-// console.log("result: " + checkCraft());
-// export default checkCraft()
+function getItemsInTable() {
+  //To get the list of the differents items that are currently in the table
+  let itemsInTable = [];
+  inventory["craftTable"].forEach((row) => {
+    row.forEach((rowItem) => {
+      if (rowItem["item"] !== "" && !itemsInTable.includes(rowItem["item"])) {
+        itemsInTable.push(rowItem["item"]);
+      }
+    });
+  });
+  return itemsInTable;
+}
 
+function getNbrOfItemsInTable() {
+  //To get the number of items in the table (occupied slots)
+  let nbrOfItems = 0;
+  inventory["craftTable"].forEach((row) => {
+    row.forEach((rowItem) => {
+      if (rowItem["item"] !== "") {
+        nbrOfItems++;
+      }
+    });
+  });
+  return nbrOfItems;
+}

@@ -2,22 +2,22 @@
   "inventory": [
     { "item": "minecraft:bread", "count": 5 },
     { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
     { "item": "minecraft:diamond", "count": 64 },
     { "item": "", "count": 0 },
+    { "item": "minecraft:diamond", "count": 32 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "minecraft:bread", "count": 64 },
-    { "item": "minecraft:diamond", "count": 1 },
+    { "item": "", "count": 0 },
+    { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "minecraft:diamond", "count": 52 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
-    { "item": "minecraft:diamond", "count": 7 },
-    { "item": "", "count": 0 },
     { "item": "minecraft:acacia_log", "count": 1 },
+    { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "minecraft:diamond", "count": 4 },
     { "item": "minecraft:diamond", "count": 16 },
@@ -25,27 +25,27 @@
     { "item": "", "count": 0 },
     { "item": "minecraft:stone_shovel", "count": 30 },
     { "item": "", "count": 0 },
-    { "item": "minecraft:diamond", "count": 2 },
+    { "item": "minecraft:diamond_sword", "count": 1 },
+    { "item": "minecraft:bread", "count": 28 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
     { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
-    { "item": "", "count": 0 },
-    { "item": "minecraft:bread", "count": 28 }
+    { "item": "minecraft:diamond_sword", "count": 1 },
+    { "item": "minecraft:diamond_sword", "count": 1 },
+    { "item": "minecraft:diamond_sword", "count": 1 }
   ],
   "mouse": { "item": "", "count": 0 },
   "craftTable": [
     [
-      { "item": "minecraft:diamond", "count": 32 },
+      { "item": "minecraft:diamond", "count": 40 },
       { "item": "", "count": 0 },
       { "item": "", "count": 0 }
     ],
     [
-      { "item": "minecraft:diamond", "count": 32 },
+      { "item": "minecraft:diamond", "count": 2 },
       { "item": "", "count": 0 },
       { "item": "", "count": 0 }
     ],
@@ -55,5 +55,5 @@
       { "item": "", "count": 0 }
     ]
   ],
-  "resultCell": [{ "item": "", "count": 0 }]
+  "resultCell": [{ "item": "minecraft:diamond_sword", "count": 1 }]
 }
