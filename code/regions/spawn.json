@@ -1,0 +1,78 @@
+{
+  "spawn0": {
+    "title": "Spawn Zero",
+    "backgroundImg": "spawn0",
+    "chatText": "Welcome to Minicraft!",
+    "choices": [
+      {
+        "text": "Go to the village",
+        "action": "code",
+        "pinCoordinates": [15, 25]
+      },
+      {
+        "text": "Cut trees",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees0",
+        "pinCoordinates": [60, 20]
+      },
+      {
+        "text": "Go to the cave",
+        "action": "code",
+        "pinCoordinates": [30, 52]
+      },
+      { "text": "4", "action": "code" }
+    ],
+    "content": {
+      "mobs": [],
+      "chests": [],
+      "breakablesBlocks": [],
+      "placablesBloks": []
+    }
+  },
+  "spawnTrees0": {
+    "title": "Spawn ",
+    "backgroundImg": "spawnTrees0",
+    "layerImage": "./assets/gameplay_img/spawnTrees0Layer.png",
+    "chatText": "spawnTrees0 chat",
+    "choices": [
+      {
+        "text": "Cut more trees",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
+      },
+      {
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+      },
+      { "text": "3", "action": "code" },
+      { "text": "4", "action": "code" }
+    ],
+    "content": {
+      "mobs": [],
+      "chests": [],
+      "breakablesBlocks": [],
+      "placablesBloks": []
+    }
+  },
+  "spawnTrees1": {
+    "title": "Spawn ",
+    "backgroundImg": "spawnTrees1",
+    "chatText": "spawnTrees1 chat",
+    "choices": [
+      {
+        "text": "Cut more trees",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
+      },
+      {
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+      },
+      { "text": "3", "action": "code" },
+      { "text": "4", "action": "code" }
+    ],
+    "content": {
+      "mobs": [],
+      "chests": [],
+      "breakablesBlocks": [],
+      "placablesBloks": []
+    }
+  }
+}

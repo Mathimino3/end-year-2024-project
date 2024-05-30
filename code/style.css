@@ -43,8 +43,22 @@ body::backdrop {
   position: relative;
 }
 
-.gameplay {
+.gameplay-img {
   width: 100%;
+  z-index: 4;
+  /* display: none; */
+}
+
+.img-canvas {
+  display: none;
+}
+
+.layer-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .chat {
@@ -59,6 +73,21 @@ body::backdrop {
 .chat p {
   font-size: 0.8rem;
   margin-left: 5px;
+}
+
+.pin {
+  position: absolute;
+  width: 8%;
+  height: fit-content;
+  image-rendering: pixelated;
+}
+
+.pin img {
+  width: 100%;
+}
+
+.pin-coordiates {
+  display: none;
 }
 
 .btn {
