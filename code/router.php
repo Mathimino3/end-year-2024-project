@@ -1,16 +1,15 @@
 <?php
-session_start();
+$scenes = json_decode(file_get_contents("./scenes.json"), true);
+$playerInfos = json_decode(file_get_contents("./player_infos.json"), true);
 
-$inventory = json_decode(file_get_contents("inventory.json"), true);
 require_once('./fn.php');
 
 $action = $_GET['action'];
 
 switch ($action) {
-    case "takeItem":
-        takeItem($inventory);
-        break;
-    case "writeJson":
-        writeJson($inventory, $_GET["data"]);
+    case "changeScene":
+        changeScene($playerInfos, $_GET["region"], $_GET["scene"]);
         break;
 }
+
+header('Location: /');

@@ -1,7 +1,12 @@
 <?php
-$inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
-$recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
-//oui
+$scenes = json_decode(file_get_contents("./scenes.json"), true);
+$playerInfos = json_decode(file_get_contents("./player_infos.json"), true);
+
+$currentRegion = $playerInfos["currentRegion"] === "" ? "spawn" : $playerInfos["currentRegion"];
+$currentScene = $playerInfos["currentScene"] === "" ? "spawn0" : $playerInfos["currentScene"];
+$sceneData = $scenes["regions"][$currentRegion]["scenes"][$currentScene];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,6 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
         maximum-scale=1.0, user-scalable=no">
     <script src="./display.js" defer></script>
     <script src="./inventory/inventory.js" type="module" defer></script>
-    <!-- <script src="./inventory/craft/craft.js" type="module" defer></script> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="style.css">
     <title>Game</title>
@@ -41,10 +45,10 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
         </div>
 
-        <img class="gameplay" src="./assets/img/gameplay.png" alt="">
+        <img class="gameplay" src="./assets/gameplay_img/<?= $sceneData["backgroundImg"] ?>.png" alt="">
 
         <div class="chat">
-            <p>This text is editable</p>
+            <p><?= $sceneData["chatText"] ?></p>
         </div>
     </div>
 
@@ -58,22 +62,22 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
     </div>
 
     <div class="choices-btn-container">
-
+        <!-- desktop choices btn -->
         <div class="first-btn-separator btn-separator desktop-sparator">
-            <a class="choices-btn btn first-choice">
-                <p>Overworld</p>
+            <a href="<?= $sceneData["choices"][0]["action"] ?>" class="choices-btn btn first-choice">
+                <p><?= $sceneData["choices"][0]["text"] ?></p>
             </a>
-            <a class="choices-btn btn second-choice">
-                <p>Nether</p>
+            <a href="<?= $sceneData["choices"][1]["action"] ?>" class="choices-btn btn second-choice">
+                <p><?= $sceneData["choices"][1]["text"] ?></p>
             </a>
         </div>
 
         <div class="last-btn-separator btn-separator desktop-sparator">
-            <a class="choices-btn btn third-choice">
-                <p>End</p>
+            <a href="<?= $sceneData["choices"][2]["action"] ?>" class="choices-btn btn third-choice">
+                <p><?= $sceneData["choices"][2]["text"] ?></p>
             </a>
-            <a class="choices-btn btn">
-                <p>Choice 4</p>
+            <a href="<?= $sceneData["choices"][3]["action"] ?>" class="choices-btn btn">
+                <p><?= $sceneData["choices"][3]["text"] ?></p>
             </a>
         </div>
 

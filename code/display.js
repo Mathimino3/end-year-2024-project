@@ -139,16 +139,6 @@ const inventoryCell = document.querySelectorAll(".inventory-cell");
 inventoryBtns.forEach((e) =>
   e.addEventListener("click", () => {
     inventory.classList.remove("hidden");
-    inventoryResize();
-    inventoryGrid.style.gridTemplateRows = `repeat(4, ${
-      inventoryGrid.offsetWidth / 9
-    }px)`;
-
-    craftGrid.style.gridTemplateRows = `repeat(3, ${
-      craftGrid.offsetWidth / 3
-    }px)`;
-    const resultCell = document.querySelector(".result-cell");
-    resultCell.style.height = `${inventoryCell[1].offsetHeight}px`;
   })
 );
 

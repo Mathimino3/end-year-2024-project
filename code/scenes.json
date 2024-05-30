@@ -1,18 +1,40 @@
 {
-  "regions": [
-    {
-      "name": "overworld",
-      "title": "Overworld",
-      "scenes": [
-        {
-          "name": "spawnFirst",
-          "title": "Spawn First",
-          "backgroundImage": "",
+  "regions": {
+    "spawn": {
+      "title": "Spawn",
+      "scenes": {
+        "spawn0": {
+          "title": "Spawn Zero",
+          "backgroundImg": "spawn0",
+          "chatText": "spawn0 chat",
           "choices": [
-            { "text": "Do that", "action": "code" },
-            { "text": "Do that", "action": "code" },
-            { "text": "Do that", "action": "code" },
-            { "text": "Do that", "action": "code" }
+            {
+              "text": "Next scene",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawn1"
+            },
+            { "text": "2", "action": "code" },
+            { "text": "3", "action": "code" },
+            { "text": "4", "action": "code" }
+          ],
+          "content": {
+            "mobs": [],
+            "chests": [],
+            "breakablesBlocks": [],
+            "placablesBloks": []
+          }
+        },
+        "spawn1": {
+          "title": "Spawn One",
+          "backgroundImg": "spawn1",
+          "chatText": "spawn1 chat",
+          "choices": [
+            {
+              "text": "Previous scene",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+            },
+            { "text": "2", "action": "code" },
+            { "text": "3", "action": "code" },
+            { "text": "4", "action": "code" }
           ],
           "content": {
             "mobs": [],
@@ -21,9 +43,9 @@
             "placablesBloks": []
           }
         }
-      ]
+      }
     }
-  ],
+  },
   "scenes": {
     "room": {
       "title": "Room",
