@@ -6,11 +6,11 @@
         "spawn0": {
           "title": "Spawn Zero",
           "backgroundImg": "spawn0",
-          "chatText": "spawn0 chat",
+          "chatText": "Welcome to Minicraft!",
           "choices": [
             {
-              "text": "Next scene",
-              "action": "router.php?action=changeScene&region=spawn&scene=spawn1"
+              "text": "Cut trees",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees0"
             },
             { "text": "2", "action": "code" },
             { "text": "3", "action": "code" },
@@ -23,16 +23,42 @@
             "placablesBloks": []
           }
         },
-        "spawn1": {
-          "title": "Spawn One",
-          "backgroundImg": "spawn1",
-          "chatText": "spawn1 chat",
+        "spawnTrees0": {
+          "title": "Spawn ",
+          "backgroundImg": "spawnTrees0",
+          "chatText": "spawnTrees0 chat",
           "choices": [
             {
-              "text": "Previous scene",
+              "text": "Cut more trees",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
+            },
+            {
+              "text": "Go back to spawn",
               "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
             },
-            { "text": "2", "action": "code" },
+            { "text": "3", "action": "code" },
+            { "text": "4", "action": "code" }
+          ],
+          "content": {
+            "mobs": [],
+            "chests": [],
+            "breakablesBlocks": [],
+            "placablesBloks": []
+          }
+        },
+        "spawnTrees1": {
+          "title": "Spawn ",
+          "backgroundImg": "spawnTrees1",
+          "chatText": "spawnTrees1 chat",
+          "choices": [
+            {
+              "text": "Cut more trees",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
+            },
+            {
+              "text": "Go back to spawn",
+              "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+            },
             { "text": "3", "action": "code" },
             { "text": "4", "action": "code" }
           ],
