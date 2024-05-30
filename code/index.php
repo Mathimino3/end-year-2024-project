@@ -1,5 +1,4 @@
 <?php
-session_start();
 $inventory = json_decode(file_get_contents("./inventory/inventory.json"), true);
 $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 //oui
@@ -86,7 +85,7 @@ $recipes = json_decode(file_get_contents("./inventory/recipes.json"), true);
 
     </div>
 
-    <div class="inventory storage-interface">
+    <div class="inventory storage-interface hidden">
         <span class="close-inventory">X</span>
         <h2 class="storage-title inventory-title">Inventory</h2>
         <div class="inventory-grid">

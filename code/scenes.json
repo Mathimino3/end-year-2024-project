@@ -5,8 +5,8 @@
       "title": "Overworld",
       "scenes": [
         {
-          "name": "firstScene",
-          "title": "First Scene",
+          "name": "spawnFirst",
+          "title": "Spawn First",
           "backgroundImage": "",
           "choices": [
             { "text": "Do that", "action": "code" },
