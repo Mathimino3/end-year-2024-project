@@ -31,7 +31,9 @@
   "spawnTrees0": {
     "title": "Spawn ",
     "backgroundImg": "spawnTrees0",
-    "layerImage": "./assets/gameplay_img/spawnTrees0Layer.png",
+    "blocksBroken": "spawnTrees0Breaked",
+    "layerImage": "spawnTrees0Layer",
+    "outline": "spawnTrees0Outline",
     "chatText": "spawnTrees0 chat",
     "choices": [
       {

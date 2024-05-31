@@ -10,6 +10,8 @@ switch ($action) {
     case "changeScene":
         changeScene($playerInfos, $_GET["region"], $_GET["scene"]);
         break;
+    case "breakBlocks":
+        breakBlocks($playerInfos, $_GET["region"], $_GET["scene"]);
 }
 
 header('Location: /');

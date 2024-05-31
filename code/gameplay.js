@@ -24,7 +24,7 @@ choiceBtns.forEach((e) => {
   }
 });
 
-const img = document.querySelector(".img-canvas");
+const layerImg = document.querySelector(".img-canvas");
 // Creating the canvas to detect some specifics locations of the images
 //the canvas is at opacity 0
 const canvas = document.querySelector(".layer-canvas");
@@ -34,7 +34,7 @@ gameplayContainerr.appendChild(canvas);
 function checkPixelColor(x, y) {
   //fct that get the color of a pixel of an image in the cavas at given coordinates
   //the img src is set in the index
-  if (img.src === "") {
+  if (layerImg.src === "") {
     return;
   }
   //Making the canvas size = to the one of the gamplay
@@ -43,7 +43,7 @@ function checkPixelColor(x, y) {
 
   // Drawing the image
   ctx.drawImage(
-    img,
+    layerImg,
     0,
     0,
     gameplayContainerr.clientWidth,
@@ -57,20 +57,45 @@ function checkPixelColor(x, y) {
   return `${imageData[0]}, ${imageData[1]}, ${imageData[2]}`;
 }
 
-gameplayContainerr.addEventListener("mousemove", function (event) {
-  //geting x and y coordinates relative to the gamplay container
-  const rect = gameplayContainerr.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  //getting the color of the pixel at the location of the pointer on the canvas image
-  const color = checkPixelColor(x, y);
-  switch (color) {
-    case "246, 0, 255":
-      console.log("breakable");
-      gameplayContainerr.style.cursor = "crosshair";
-      break;
-    default:
-      gameplayContainerr.style.cursor = "default";
-      break;
+const destroyAnimation = document.querySelector(".destroy-animation");
+const destroyAnimationImg = document.querySelector(".destroy-animation img");
+destroyAnimationImg.src = "./assets/destroy_stages/destroy_stage_0.png";
+
+const layerOutline = document.querySelector(".layer-outline");
+
+let breakable = false;
+gameplayContainerr.addEventListener("mousemove", function (e) {
+  if (layerImg.src !== "") {
+    //geting x and y coordinates relative to the gamplay container
+    const rect = gameplayContainerr.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    //getting the color of the pixel at the location of the pointer on the canvas image
+    const color = checkPixelColor(x, y);
+    switch (color) {
+      case "246, 0, 255":
+        gameplayContainerr.style.cursor =
+          "url(./assets/textures/diamond_pickaxe.png, auto)";
+        breakable = true;
+        layerOutline.style.opacity = "1";
+        // destroyAnimation.style.left =
+        // x - destroyAnimation.offsetWidth - 5 + "px";
+        // destroyAnimation.style.top =
+        // y - destroyAnimation.offsetHeight - 5 + "px";
+        break;
+      default:
+        breakable = false;
+        layerOutline.style.opacity = "0";
+        gameplayContainerr.style.cursor = "default";
+        break;
+    }
   }
 });
+
+gameplayContainerr.addEventListener("mouseup", () => {
+  if (breakable) {
+    window.location = `router.php?action=breakBlocks&region=${currentRegion}&scene=${currentScene}`;
+  }
+});
+function breakBlocks() {}

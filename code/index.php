@@ -9,6 +9,13 @@ $currentScene = $playerInfos["currentScene"] === "" ? "spawn0" : $playerInfos["c
 $regionJson = json_decode(file_get_contents("./regions/" . $currentRegion . ".json"), true);
 $sceneData = $regionJson[$currentScene];
 
+$haveBlocksBeenBroken = null;
+if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
+    $haveBlocksBeenBroken = true;
+} else {
+    $haveBlocksBeenBroken = false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,9 +58,10 @@ $sceneData = $regionJson[$currentScene];
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
         </div>
 
-        <img class="gameplay-img" src="./assets/gameplay_img/<?= $sceneData["backgroundImg"] ?>.png" alt="">
+        <img class="gameplay-img" src="./assets/gameplay_img/<?= $haveBlocksBeenBroken ? $sceneData["blocksBroken"] : $sceneData["backgroundImg"] ?>.png" alt="">
         <canvas class="layer-canvas"></canvas>
-        <img class="img-canvas" src="<?= $sceneData["layerImage"] ?>">
+        <img class="img-canvas" src="<?php if (isset($sceneData["layerImage"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["layerImage"] . '.png' ?>">
+        <img class="layer-outline" src="<?php if (isset($sceneData["outline"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["outline"] . '.png' ?>" alt="">
 
         <div class="chat">
             <p><?= $sceneData["chatText"] ?></p>
@@ -62,7 +70,12 @@ $sceneData = $regionJson[$currentScene];
         <div class="pin hidden">
             <img src="./assets/img/pin.png" alt="">
         </div>
+        <div class="destroy-animation">
+            <img src="" alt="">
+        </div>
+
     </div>
+
 
     <div class="btn-separator last-btn-separator mobile-separator">
         <a class="choices-btn btn third-choice">
