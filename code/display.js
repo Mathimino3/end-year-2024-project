@@ -123,18 +123,7 @@ fullscreenBtn.addEventListener("click", () => {
   }
 });
 
-//Creating the inventory
-
-function inventoryResize() {
-  if (inventory.offsetWidth / inventory.offsetHeight >= 3) {
-    inventory.style.width = "60%";
-  }
-  inventoryGrid.style.gridTemplateRows = `repeat(4, ${
-    inventoryGrid.offsetWidth / 9
-  }px)`;
-}
-
-const inventoryCell = document.querySelectorAll(".inventory-cell");
+//Creating the inventory btns
 
 inventoryBtns.forEach((e) =>
   e.addEventListener("click", () => {

@@ -1,21 +1,28 @@
+//Getting variables from the php code
 const currentRegion = document.querySelector(".current-region").innerText;
 const currentScene = document.querySelector(".current-scene").innerText;
-
+const currentChoices = JSON.parse(
+  document.querySelector(".current-choices").innerText
+);
+//
 const gameplayContainerr = document.querySelector(".gameplay-container");
 //Setting the pin position
 const pin = document.querySelector(".pin");
 
 const choiceBtns = document.querySelectorAll(".choices-btn");
-choiceBtns.forEach((e) => {
+// console.log(currentChoices[0]);
+choiceBtns.forEach((e, i) => {
+  //There is 8 btns but 2 verion of each one (so 4 btn * 2) : one for the mobile and one for the desktop.
+  //So we don't want i to be higher than 3 but the loop still need to iterate 8 times to go trought all btns
+  if (i > 3) {
+    i = i - 4;
+  }
   //checking if the coordinates are valid/exist
-  if (
-    parseInt(e.children[0].innerText) >= 0 &&
-    parseInt(e.children[1].innerText) >= 0
-  ) {
+  if ("pinCoordinates" in currentChoices[i]) {
     //Handeling the display of the pin
     e.addEventListener("mouseover", () => {
-      pin.style.left = e.children[0].innerText + "%";
-      pin.style.top = e.children[1].innerText + "%";
+      pin.style.left = currentChoices[i]["pinCoordinates"][0] + "%";
+      pin.style.top = currentChoices[i]["pinCoordinates"][1] + "%";
       pin.classList.remove("hidden");
     });
     e.addEventListener("mouseout", () => {
@@ -24,7 +31,7 @@ choiceBtns.forEach((e) => {
   }
 });
 
-const layerImg = document.querySelector(".img-canvas");
+const layerImg = document.querySelector(".img-layer");
 // Creating the canvas to detect some specifics locations of the images
 //the canvas is at opacity 0
 const canvas = document.querySelector(".layer-canvas");
@@ -61,9 +68,10 @@ const destroyAnimation = document.querySelector(".destroy-animation");
 const destroyAnimationImg = document.querySelector(".destroy-animation img");
 destroyAnimationImg.src = "./assets/destroy_stages/destroy_stage_0.png";
 
-const layerOutline = document.querySelector(".layer-outline");
+const layerOutlineBreak = document.querySelector(".layer-outline-break");
+const layerOutlinePlace = document.querySelector(".layer-outline-place");
 
-let breakable = false;
+let interaction = null;
 gameplayContainerr.addEventListener("mousemove", function (e) {
   if (layerImg.src !== "") {
     //geting x and y coordinates relative to the gamplay container
@@ -74,19 +82,22 @@ gameplayContainerr.addEventListener("mousemove", function (e) {
     //getting the color of the pixel at the location of the pointer on the canvas image
     const color = checkPixelColor(x, y);
     switch (color) {
-      case "246, 0, 255":
+      case "255, 0, 0":
+        //We can break this part
+        interaction = "breakable";
         gameplayContainerr.style.cursor =
           "url(./assets/textures/diamond_pickaxe.png, auto)";
-        breakable = true;
-        layerOutline.style.opacity = "1";
-        // destroyAnimation.style.left =
-        // x - destroyAnimation.offsetWidth - 5 + "px";
-        // destroyAnimation.style.top =
-        // y - destroyAnimation.offsetHeight - 5 + "px";
+        layerOutlineBreak.style.opacity = "1";
+        break;
+      case "0, 255, 0":
+        //we can place on this part
+        interaction = "placeable";
+        layerOutlinePlace.style.opacity = "1";
         break;
       default:
-        breakable = false;
-        layerOutline.style.opacity = "0";
+        interaction = null;
+        layerOutlineBreak.style.opacity = "0";
+        layerOutlinePlace.style.opacity = "0";
         gameplayContainerr.style.cursor = "default";
         break;
     }
@@ -94,8 +105,18 @@ gameplayContainerr.addEventListener("mousemove", function (e) {
 });
 
 gameplayContainerr.addEventListener("mouseup", () => {
-  if (breakable) {
-    window.location = `router.php?action=breakBlocks&region=${currentRegion}&scene=${currentScene}`;
+  switch (interaction) {
+    case "breakable":
+      breakBlocks();
+      break;
+    case "placeable":
+      placeBlocks();
+      break;
   }
 });
-function breakBlocks() {}
+
+function breakBlocks() {
+  window.location = `router.php?action=breakBlocks&region=${currentRegion}&scene=${currentScene}`;
+}
+
+function placeBlocks() {}

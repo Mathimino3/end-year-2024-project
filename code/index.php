@@ -9,15 +9,22 @@ $currentScene = $playerInfos["currentScene"] === "" ? "spawn0" : $playerInfos["c
 $regionJson = json_decode(file_get_contents("./regions/" . $currentRegion . ".json"), true);
 $sceneData = $regionJson[$currentScene];
 
-$haveBlocksBeenBroken = null;
+
+//Have the blocks that could be broken broken?
+$haveBlocksBeenBroken = false;
+//Check if the current scene is in the list of the ones where the blocks have been broken
 if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
     $haveBlocksBeenBroken = true;
-} else {
-    $haveBlocksBeenBroken = false;
+}
+
+//Have the blocks that could be placed placed?
+$haveBlocksBeenPlaced = false;
+//Check if the current scene is in the list of the ones where the blocks have been placed
+if (in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
+    $haveBlocksBeenPlaced = true;
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -35,21 +42,25 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
 </head>
 
 <body>
-    <!-- making $currentRegion and $currentScene accesible by the js code -->
+    <!-- making thoses variables accesible by the js code -->
     <span class="current-region hidden"><?= $currentRegion ?></span>
     <span class="current-scene hidden"><?= $currentScene ?></span>
 
+    <span class="current-choices hidden"><?= json_encode($sceneData["choices"]) ?></span>
+    <!--  -->
+
+    <!-- mobile choices btns 1 and 2-->
     <div class="btn-separator first-btn-separator mobile-separator">
 
         <div class="inventory-btn  btn">
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
         </div>
 
-        <a class="choices-btn btn first-choice">
-            <p>Overworld</p>
+        <a href="<?= $sceneData["choices"][0]["action"] ?>" class="choices-btn btn first-choice">
+            <p><?= $sceneData["choices"][0]["text"] ?></p>
         </a>
-        <a class="choices-btn btn second-choice">
-            <p>Nether</p>
+        <a href="<?= $sceneData["choices"][1]["action"] ?>" class="choices-btn btn second-choice">
+            <p><?= $sceneData["choices"][1]["text"] ?></p>
         </a>
     </div>
 
@@ -58,63 +69,74 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
             <img src="./assets/img/inventory_btn.png" alt="Inventaire">
         </div>
 
-        <img class="gameplay-img" src="./assets/gameplay_img/<?= $haveBlocksBeenBroken ? $sceneData["blocksBroken"] : $sceneData["backgroundImg"] ?>.png" alt="">
+        <img class="gameplay-img" src="./assets/gameplay_img/<?php
+                                                                //Check wich img to show. if the blocks have been broken and place show the right img
+                                                                //if only broken show only broken   if only placed show only placed
+                                                                //else show default background
+                                                                if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced) echo $sceneData["blocksBrokenAndPlacedImg"];
+                                                                elseif ($haveBlocksBeenBroken) echo $sceneData["blocksBrokenImg"];
+                                                                elseif ($haveBlocksBeenPlaced) echo $sceneData["blocksPlacedImg"];
+                                                                else echo $sceneData["backgroundImg"] ?>.png">
+        <!-- The layer is where the interactable parts of the image are set -->
         <canvas class="layer-canvas"></canvas>
-        <img class="img-canvas" src="<?php if (isset($sceneData["layerImage"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["layerImage"] . '.png' ?>">
-        <img class="layer-outline" src="<?php if (isset($sceneData["outline"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["outline"] . '.png' ?>" alt="">
+        <img class="img-layer" src="<?php if (isset($sceneData["layerImg"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["layerImg"] . '.png' ?>">
+        <!-- The outlines of the interactable parts hovering -->
+        <img class="layer-outline-break layer-outline" src="<?php if (isset($sceneData["outlineBreakImg"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["outlineBreakImg"] . '.png' ?>" alt="">
+        <img class="layer-outline-place layer-outline" src="<?php if (isset($sceneData["outlinePlaceImg"]) && !$haveBlocksBeenBroken) echo './assets/gameplay_img/' . $sceneData["outlinePlaceImg"] . '.png' ?>" alt="">
 
+        <!-- the "chat" -->
         <div class="chat">
             <p><?= $sceneData["chatText"] ?></p>
         </div>
 
+        <!-- the location pins that can appear while hovering choices -->
         <div class="pin hidden">
             <img src="./assets/img/pin.png" alt="">
         </div>
+        <!-- Creating a display for the item we recently got -->
+        <div class="recent-items">
+            <?php foreach ($playerInfos["recentlyObtainedItems"] as $index => $i) : ?>
+                <div class="recent-items-content">
+                    + <?= $i["count"] ?>&#160;
+                    <span class="recent-items-item"><?= $i["item"] ?></span>
+                    <?= $i["count"] > 1 ? "s" : "" ?>&#160;
+                    <img src="./assets/textures/<?= str_replace("minecraft:", "", $i["item"]) ?>.png" alt="">
+                </div>
+            <?php endforeach; ?>
+        </div>
+
         <div class="destroy-animation">
             <img src="" alt="">
         </div>
 
     </div>
 
-
+    <!-- mobile choices btns 3 and 4-->
     <div class="btn-separator last-btn-separator mobile-separator">
-        <a class="choices-btn btn third-choice">
-            <p>End</p>
+        <a href="<?= $sceneData["choices"][2]["action"] ?>" class="choices-btn btn third-choice">
+            <p><?= $sceneData["choices"][2]["text"] ?></p>
         </a>
-        <a class="choices-btn btn">
-            <p>Choice 4</p>
+        <a href="<?= $sceneData["choices"][3]["action"] ?>" class="choices-btn btn fourth-choice">
+            <p><?= $sceneData["choices"][3]["text"] ?></p>
         </a>
     </div>
 
     <div class="choices-btn-container">
-        <!-- desktop choices btn -->
+        <!-- desktop choices btns -->
         <div class="first-btn-separator btn-separator desktop-sparator">
             <a href="<?= $sceneData["choices"][0]["action"] ?>" class="choices-btn btn first-choice">
-                <!-- Storing the coodrinates of the pin in the page to get them in javascript -->
-                <span class="pin-coordiates pin-x"><?= $sceneData["choices"][0]["pinCoordinates"][0] ?></span>
-                <span class="pin-coordiates pin-y"><?= $sceneData["choices"][0]["pinCoordinates"][1] ?></span>
-
                 <p><?= $sceneData["choices"][0]["text"] ?></p>
             </a>
             <a href="<?= $sceneData["choices"][1]["action"] ?>" class="choices-btn btn second-choice">
-                <!-- Storing the coodrinates of the pin in the page to get them in javascript -->
-                <span class="pin-coordiates pin-x"><?= $sceneData["choices"][1]["pinCoordinates"][0] ?></span>
-                <span class="pin-coordiates pin-y"><?= $sceneData["choices"][1]["pinCoordinates"][1] ?></span>
                 <p><?= $sceneData["choices"][1]["text"] ?></p>
             </a>
         </div>
 
         <div class="last-btn-separator btn-separator desktop-sparator">
             <a href="<?= $sceneData["choices"][2]["action"] ?>" class="choices-btn btn third-choice">
-                <!-- Storing the coodrinates of the pin in the page to get them in javascript -->
-                <span class="pin-coordiates pin-x"><?= $sceneData["choices"][2]["pinCoordinates"][0] ?></span>
-                <span class="pin-coordiates pin-y"><?= $sceneData["choices"][2]["pinCoordinates"][1] ?></span>
                 <p><?= $sceneData["choices"][2]["text"] ?></p>
             </a>
-            <a href="<?= $sceneData["choices"][3]["action"] ?>" class="choices-btn btn">
-                <!-- Storing the coodrinates of the pin in the page to get them in javascript -->
-                <span class="pin-coordiates pin-x"><?= $sceneData["choices"][3]["pinCoordinates"][0] ?></span>
-                <span class="pin-coordiates pin-y"><?= $sceneData["choices"][3]["pinCoordinates"][1] ?></span>
+            <a href="<?= $sceneData["choices"][3]["action"] ?>" class="choices-btn btn fourth-choice">
                 <p><?= $sceneData["choices"][3]["text"] ?></p>
             </a>
         </div>
@@ -142,6 +164,7 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
         <p>Change your screen's rotation</p>
     </div>
 
+    <!-- the item that is in the mouse -->
     <div class="item-in-mouse">
         <div class="item">
             <img src="" alt="">
@@ -149,6 +172,7 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"])) {
         </div>
     </div>
 
+    <!-- iframe that allow the js to run php code -->
     <iframe class="php-executer" src=""></iframe>
 </body>
 

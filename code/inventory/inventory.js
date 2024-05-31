@@ -17,6 +17,12 @@ document.querySelectorAll("*").forEach((a) => {
   });
 });
 
+//This isn't realy related to the inventory but need the formatItemName() fct
+const recentItemsP = document.querySelectorAll('.recent-items-item');
+recentItemsP.forEach((e)=>{
+  e.innerText = formatItemName(e.innerText);
+})
+
 function createInv() {
   //fct that (re)create the inventory
 
