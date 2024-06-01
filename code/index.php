@@ -86,7 +86,11 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
 
         <!-- the "chat" -->
         <div class="chat">
-            <p><?= $sceneData["chatText"] ?></p>
+            <p><?php if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced) echo $sceneData["chatTextBrokenAndPlaced"];
+                elseif ($haveBlocksBeenBroken) echo $sceneData["chatTextBroken"];
+                elseif ($haveBlocksBeenPlaced) echo $sceneData["chatTextPlaced"];
+                else echo $sceneData["chatText"]
+                ?></p>
         </div>
 
         <!-- the location pins that can appear while hovering choices -->

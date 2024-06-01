@@ -32,11 +32,15 @@
     "title": "Spawn ",
     "backgroundImg": "spawnTrees0",
     "blocksBrokenImg": "spawnTrees0Breaked",
-    "breakItems": [{ "item": "minecraft:oak_log", "count": 8 }],
+    "breakItems": [
+      { "item": "minecraft:oak_log", "count": 8 },
+      { "item": "minecraft:diamond", "count": 8 }
+    ],
     "layerImg": "spawnTrees0Layer",
     "outlineBreakImg": "spawnTrees0OutlineBreak",
     "outlinePlaceImg": "spawnTrees0OutlinePlace",
-    "chatText": "spawnTrees0 chat",
+    "chatText": "Break the trees",
+    "chatTextBroken": "Well done!",
     "choices": [
       {
         "text": "Cut more trees",
