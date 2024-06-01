@@ -32,7 +32,7 @@
     "title": "Spawn ",
     "backgroundImg": "spawnTrees0",
     "blocksBrokenImg": "spawnTrees0Breaked",
-    "breakItems": { "item": "minecraft:oak_log", "count": 8 },
+    "breakItems": [{ "item": "minecraft:oak_log", "count": 8 }],
     "layerImg": "spawnTrees0Layer",
     "outlineBreakImg": "spawnTrees0OutlineBreak",
     "outlinePlaceImg": "spawnTrees0OutlinePlace",

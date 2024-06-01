@@ -97,12 +97,18 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
         <div class="recent-items">
             <?php foreach ($playerInfos["recentlyObtainedItems"] as $index => $i) : ?>
                 <div class="recent-items-content">
+                    <!-- &#160; is a blank space -->
                     + <?= $i["count"] ?>&#160;
                     <span class="recent-items-item"><?= $i["item"] ?></span>
                     <?= $i["count"] > 1 ? "s" : "" ?>&#160;
                     <img src="./assets/textures/<?= str_replace("minecraft:", "", $i["item"]) ?>.png" alt="">
                 </div>
-            <?php endforeach; ?>
+            <?php
+            endforeach;
+            //Clearing the recently obtained items after displaying them
+            $playerInfos["recentlyObtainedItems"] = [];
+            file_put_contents('./player_infos.json', json_encode($playerInfos));
+            ?>
         </div>
 
         <div class="destroy-animation">
