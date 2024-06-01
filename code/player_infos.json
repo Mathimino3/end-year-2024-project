@@ -1,9 +1,1 @@
-{
-  "currentRegion": "spawn",
-  "currentScene": "spawnTrees0",
-  "sceneWhereBlocksBroken": [],
-  "sceneWhereBlocksPlaced": [],
-  "recentlyObtainedItems": [],
-  "recentlyLostItems": [],
-  "droppedItems": [{ "item": "minecraft:oak_log", "count": 8 }]
-}
+{"currentRegion":"spawn","currentScene":"spawnTrees0","sceneWhereBlocksBroken":[],"sceneWhereBlocksPlaced":[],"recentlyObtainedItems":[],"recentlyLostItems":[],"droppedItems":[{"item":"minecraft:oak_log","count":8}]}
