@@ -10,13 +10,14 @@ function changeScene($playerInfos, $region, $scene)
 
 function breakBlocks($playerInfos, $inventory, $regionJson, $region, $scene)
 {
-    //Fct the add the current scene in the array sceneWhereBlocksBroken 
+    //Fct the add the current scene in the array sceneWhereBlocksBroken and call another one to add items to the inv
     if (!in_array($scene, $playerInfos["sceneWhereBlocksBroken"])) {
         $playerInfos = addItemsToInv($inventory, $playerInfos, $regionJson[$scene]["breakItems"]);
-        // array_push($playerInfos["sceneWhereBlocksBroken"], $scene);
+        array_push($playerInfos["sceneWhereBlocksBroken"], $scene);
         file_put_contents('./player_infos.json', json_encode($playerInfos));
     }
 }
+
 
 function addItemsToInv($inventory, $playerInfos, $items, $logRecentsItems = true)
 {
@@ -67,4 +68,62 @@ function addItemsToInv($inventory, $playerInfos, $items, $logRecentsItems = true
         }
     }
     return $playerInfos;
+}
+
+
+function placeBlocks($playerInfos, $inventory, $regionJson, $region, $scene)
+{
+    //Fct the add the current scene in the array sceneWhereBlocksPlaced and call another one to remove items from the inv
+
+    if (!in_array($scene, $playerInfos["sceneWhereBlocksPlaced"])) {
+        //Getting the response of the fonction that take items from the inv since it return an array
+        $responseForRemoveItesFromInv = removeItemsFromInv($inventory, $playerInfos, $regionJson[$scene]["placeItems"]);
+        $playerInfos = $responseForRemoveItesFromInv[0];
+        //If the required items were found 
+        if ($responseForRemoveItesFromInv[1]) {
+            array_push($playerInfos["sceneWhereBlocksPlaced"], $scene);
+        }
+        file_put_contents('./player_infos.json', json_encode($playerInfos));
+    }
+}
+
+function removeItemsFromInv($inventory, $playerInfos, $items)
+{
+    //Fct that remove an array of items in the inventory if they are found in it
+    $done = 0;
+    //Iterating trought every given items
+    foreach ($items as $item) {
+        $foundItems = 0;
+        //The number of items we still need to find
+        $NbrOfItemsToFindLeft = $item["count"];
+        //Iterating trought every inventory cells
+        foreach ($inventory["inventory"] as $cellIndex => $cell) {
+            //If the item in the cell is = to the given one
+            if ($cell["item"] === $item["item"]) {
+                $foundItems = $foundItems + $cell["count"];
+                //If we found the amount we needed or more for that item
+                if ($foundItems >= $item["count"]) {
+                    //Take that amount we need from the cell
+                    $inventory["inventory"][$cellIndex]["count"] = $inventory["inventory"][$cellIndex]["count"] - $NbrOfItemsToFindLeft;
+                    $done = $done + 1;
+                    //Do the same with the next item
+                    break;
+                }
+                //If we found a smaller amount than the one we needed
+                //clear the cell
+                $inventory["inventory"][$cellIndex]["count"] = 0;
+                $inventory["inventory"][$cellIndex]["item"] = "";
+                $NbrOfItemsToFindLeft = $NbrOfItemsToFindLeft - $cell["count"];
+                //try with the next cell
+            }
+        }
+    }
+    //If we found every items
+    if ($done === count($items)) {
+        $playerInfos["recentlyLostItems"] = $items;
+        file_put_contents('./inventory/inventory.json', json_encode($inventory));
+    } else {
+        $playerInfos["warning"] = "You can't place blocks you don't have! ";
+    }
+    return [$playerInfos, $done];
 }

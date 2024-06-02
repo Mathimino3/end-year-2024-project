@@ -1,6 +1,5 @@
 {
   "spawn0": {
-    "title": "Spawn Zero",
     "backgroundImg": "spawn0",
     "chatText": "Welcome to Minicraft!",
     "choices": [
@@ -19,7 +18,7 @@
         "action": "code",
         "pinCoordinates": [30, 52]
       },
-      { "text": "4", "action": "code" }
+      { "text": "Wait", "action": "/" }
     ],
     "content": {
       "mobs": [],
@@ -29,60 +28,75 @@
     }
   },
   "spawnTrees0": {
-    "title": "Spawn ",
-    "backgroundImg": "spawnTrees0",
-    "blocksBrokenImg": "spawnTrees0Broken",
     "breakItems": [{ "item": "minecraft:oak_log", "count": 8 }],
-    "layerImg": "spawnTrees0Layer",
-    "outlineBreakImg": "spawnTrees0OutlineBreak",
-    "outlinePlaceImg": "spawnTrees0OutlinePlace",
+    "placeItems": [{ "item": "minecraft:diamond", "count": 10 }],
+
     "chatText": "Break the trees.",
     "chatTextBroken": "Well done!",
+
     "choices": [
+      {
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+      },
       {
         "text": "Cut more trees",
         "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
       },
       {
-        "text": "Go back to spawn",
-        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+        "text": "Admire the landscape",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawnAfterTrees"
       },
-      { "text": "3", "action": "code" },
-      { "text": "4", "action": "code" }
-    ],
-    "content": {
-      "mobs": [],
-      "chests": [],
-      "breakablesBlocks": [],
-      "placablesBloks": []
-    }
+      {
+        "text": "Craft Items",
+        "action": "?invOpen=true"
+      }
+    ]
   },
   "spawnTrees1": {
-    "title": "Spawn ",
-    "backgroundImg": "spawnTrees1",
-    "blocksBrokenImg": "spawnTrees1Broken",
     "breakItems": [{ "item": "minecraft:oak_log", "count": 12 }],
-    "layerImg": "spawnTrees1Layer",
-    "outlineBreakImg": "spawnTrees1OutlineBreak",
     "chatText": "Break the trees, again.",
     "chatTextBroken": "Well done!",
     "choices": [
       {
-        "text": "Cut more trees",
-        "action": "router.php?action=changeScene&region=spawn&scene=spawnTrees1"
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
       },
       {
         "text": "Go back to spawn",
         "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
       },
-      { "text": "3", "action": "code" },
-      { "text": "4", "action": "code" }
-    ],
-    "content": {
-      "mobs": [],
-      "chests": [],
-      "breakablesBlocks": [],
-      "placablesBloks": []
-    }
+      {
+        "text": "Admire the landscape",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawnAfterTrees"
+      },
+      {
+        "text": "Craft Items",
+        "action": "?invOpen=true"
+      }
+    ]
+  },
+  "spawnAfterTrees": {
+    "chatText": "Where do you want to go?",
+    "choices": [
+      {
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+      },
+      {
+        "text": "Go to the village",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0",
+        "pinCoordinates": [53, 31]
+      },
+      {
+        "text": "Go to the cave",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0",
+        "pinCoordinates": [23, 47]
+      },
+      {
+        "text": "Craft Items",
+        "action": "?invOpen=true"
+      }
+    ]
   }
 }

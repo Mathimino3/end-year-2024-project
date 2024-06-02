@@ -15,6 +15,10 @@ switch ($action) {
         break;
     case "breakBlocks":
         breakBlocks($playerInfos, $inventory, $regionJson, $_GET["region"], $_GET["scene"]);
+        break;
+    case "placeBlocks":
+        placeBlocks($playerInfos, $inventory, $regionJson, $_GET["region"], $_GET["scene"]);
+        break;
 }
 
 header('Location: /');

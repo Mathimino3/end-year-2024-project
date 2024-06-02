@@ -4,13 +4,23 @@ const currentScene = document.querySelector(".current-scene").innerText;
 const currentChoices = JSON.parse(
   document.querySelector(".current-choices").innerText
 );
+
+const haveBlocksBeenBroken =
+  document.querySelector(".have-blocks-been-broken").innerText === "1"
+    ? true
+    : false;
+
+const haveBlocksBeenPlaced =
+  document.querySelector(".have-blocks-been-placed").innerText === "1"
+    ? true
+    : false;
+
 //
 const gameplayContainerr = document.querySelector(".gameplay-container");
 //Setting the pin position
 const pin = document.querySelector(".pin");
 
 const choiceBtns = document.querySelectorAll(".choices-btn");
-// console.log(currentChoices[0]);
 choiceBtns.forEach((e, i) => {
   //There is 8 btns but 2 verion of each one (so 4 btn * 2) : one for the mobile and one for the desktop.
   //So we don't want i to be higher than 3 but the loop still need to iterate 8 times to go trought all btns
@@ -26,7 +36,7 @@ choiceBtns.forEach((e, i) => {
       pin.classList.remove("hidden");
     });
     e.addEventListener("mouseout", () => {
-      pin.classList.add("hidden");
+      // pin.classList.add("hidden");
     });
   }
 });
@@ -71,6 +81,8 @@ destroyAnimationImg.src = "./assets/destroy_stages/destroy_stage_0.png";
 const layerOutlineBreak = document.querySelector(".layer-outline-break");
 const layerOutlinePlace = document.querySelector(".layer-outline-place");
 
+const neededItemsToPlace = document.querySelector(".needed-items-to-place");
+
 let interaction = null;
 gameplayContainerr.addEventListener("mousemove", function (e) {
   if (layerImg.src !== "") {
@@ -83,22 +95,27 @@ gameplayContainerr.addEventListener("mousemove", function (e) {
     const color = checkPixelColor(x, y);
     switch (color) {
       case "255, 0, 0":
+        if (haveBlocksBeenBroken) {
+          break;
+        }
         //We can break this part
         interaction = "breakable";
-        gameplayContainerr.style.cursor =
-          "url(./assets/textures/diamond_pickaxe.png, auto)";
         layerOutlineBreak.style.opacity = "1";
         break;
       case "0, 255, 0":
+        if (haveBlocksBeenPlaced) {
+          break;
+        }
         //we can place on this part
         interaction = "placeable";
         layerOutlinePlace.style.opacity = "1";
+        neededItemsToPlace.classList.remove("hidden");
         break;
       default:
         interaction = null;
         layerOutlineBreak.style.opacity = "0";
         layerOutlinePlace.style.opacity = "0";
-        gameplayContainerr.style.cursor = "default";
+        neededItemsToPlace.classList.add("hidden");
         break;
     }
   }
@@ -119,4 +136,6 @@ function breakBlocks() {
   window.location = `router.php?action=breakBlocks&region=${currentRegion}&scene=${currentScene}`;
 }
 
-function placeBlocks() {}
+function placeBlocks() {
+  window.location = `router.php?action=placeBlocks&region=${currentRegion}&scene=${currentScene}`;
+}

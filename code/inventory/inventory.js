@@ -17,9 +17,9 @@ document.querySelectorAll("*").forEach((a) => {
   });
 });
 
-//This isn't realy related to the inventory but need the formatItemName() fct
-const recentItemsP = document.querySelectorAll('.recent-items-item');
-recentItemsP.forEach((e)=>{
+//This isn't really related to the inventory but need the formatItemName() fct
+const itemNamesToFormat = document.querySelectorAll('.item-name-to-format');
+itemNamesToFormat.forEach((e)=>{
   e.innerText = formatItemName(e.innerText);
 })
 
@@ -550,7 +550,6 @@ function checkCraft() {
             typeof rowItem === "object" &&
             typeof rowItem["tag"] !== "undefined"
           ) {
-            console.log("has tag");
             //If the item is a tag  =>
             if (
               tags[rowItem["tag"]]["values"].includes(
