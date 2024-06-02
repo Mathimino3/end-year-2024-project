@@ -18,13 +18,14 @@ function breakBlocks($playerInfos, $inventory, $regionJson, $region, $scene)
     }
 }
 
-function addItemsToInv($inventory, $playerInfos, $items)
+function addItemsToInv($inventory, $playerInfos, $items, $logRecentsItems = true)
 {
     //Fct that add an array of items in the inventory where it find a place
     $spaceFound = false;
     //Iterating trought every given items
     foreach ($items as $item) {
         //Iterating trought every inventory cells
+        $rest = null;
         foreach ($inventory["inventory"] as $cellIndex => $cell) {
             //If the item in the cell is the same to the one we want to add and there is less than 64 item in the cell
             if ($inventory["inventory"][$cellIndex]["item"] === $item["item"] && $inventory["inventory"][$cellIndex]["count"] < 64) {
@@ -41,7 +42,7 @@ function addItemsToInv($inventory, $playerInfos, $items)
                     $inventory["inventory"][$cellIndex]["count"] = 64;
                     file_put_contents('./inventory/inventory.json', json_encode($inventory));
                     //Run the function again with the rest of the items to add the overflowing ones to an other cell
-                    $playerInfos = addItemsToInv($inventory, $playerInfos, [array("item" => $item["item"], "count" => $rest)]);
+                    $playerInfos = addItemsToInv($inventory, $playerInfos, [array("item" => $item["item"], "count" => $rest)], false);
                     break;
                 }
             }
@@ -55,12 +56,14 @@ function addItemsToInv($inventory, $playerInfos, $items)
             }
         }
         //If a free cell was found => add the item to the recently obtained items array
-        if ($spaceFound) {
-            array_push($playerInfos["recentlyObtainedItems"], array("item" => $item["item"], "count" => $item["count"]));
-        }
-        //If the inv is full => add it to the dropped items array
-        else {
-            array_push($playerInfos["droppedItems"], array("item" => $item["item"], "count" => $item["count"]));
+        if ($logRecentsItems) {
+            if ($spaceFound) {
+                array_push($playerInfos["recentlyObtainedItems"], array("item" => $item["item"], "count" => $item["count"]));
+            }
+            //If the inv is full => add it to the dropped items array
+            else {
+                array_push($playerInfos["droppedItems"], array("item" => $item["item"], "count" => $item["count"]));
+            }
         }
     }
     return $playerInfos;

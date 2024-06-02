@@ -31,15 +31,12 @@
   "spawnTrees0": {
     "title": "Spawn ",
     "backgroundImg": "spawnTrees0",
-    "blocksBrokenImg": "spawnTrees0Breaked",
-    "breakItems": [
-      { "item": "minecraft:oak_log", "count": 8 },
-      { "item": "minecraft:diamond", "count": 8 }
-    ],
+    "blocksBrokenImg": "spawnTrees0Broken",
+    "breakItems": [{ "item": "minecraft:oak_log", "count": 8 }],
     "layerImg": "spawnTrees0Layer",
     "outlineBreakImg": "spawnTrees0OutlineBreak",
     "outlinePlaceImg": "spawnTrees0OutlinePlace",
-    "chatText": "Break the trees",
+    "chatText": "Break the trees.",
     "chatTextBroken": "Well done!",
     "choices": [
       {
@@ -63,7 +60,12 @@
   "spawnTrees1": {
     "title": "Spawn ",
     "backgroundImg": "spawnTrees1",
-    "chatText": "spawnTrees1 chat",
+    "blocksBrokenImg": "spawnTrees1Broken",
+    "breakItems": [{ "item": "minecraft:oak_log", "count": 12 }],
+    "layerImg": "spawnTrees1Layer",
+    "outlineBreakImg": "spawnTrees1OutlineBreak",
+    "chatText": "Break the trees, again.",
+    "chatTextBroken": "Well done!",
     "choices": [
       {
         "text": "Cut more trees",

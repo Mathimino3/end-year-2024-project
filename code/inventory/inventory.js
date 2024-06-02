@@ -545,11 +545,12 @@ function checkCraft() {
           const rowItem = row[j];
           if (rowItem === inventory["craftTable"][rowNbr][j]["item"]) {
             //If the item from the recipe is === to the one in the craft =>
-            continue itemLoop; //check the next one
+              continue itemLoop; //check the next one
           } else if (
-            typeof rowItem === "array" &&
+            typeof rowItem === "object" &&
             typeof rowItem["tag"] !== "undefined"
           ) {
+            console.log("has tag");
             //If the item is a tag  =>
             if (
               tags[rowItem["tag"]]["values"].includes(

@@ -115,7 +115,7 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
             ?>
         </div>
 
-        <div class="destroy-animation">
+        <div class="destroy-animation hidden">
             <img src="" alt="">
         </div>
 
