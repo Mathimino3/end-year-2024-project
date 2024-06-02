@@ -5,7 +5,7 @@
     "choices": [
       {
         "text": "Go to the village",
-        "action": "code",
+        "action": "router.php?action=changeScene&region=village&scene=village0",
         "pinCoordinates": [15, 25]
       },
       {
@@ -85,7 +85,7 @@
       },
       {
         "text": "Go to the village",
-        "action": "router.php?action=changeScene&region=spawn&scene=spawn0",
+        "action": "router.php?action=changeScene&region=village&scene=village0",
         "pinCoordinates": [53, 31]
       },
       {

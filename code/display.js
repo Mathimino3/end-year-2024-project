@@ -125,15 +125,6 @@ fullscreenBtn.addEventListener("click", () => {
 
 //Creating the inventory btns
 
-inventoryBtns.forEach((e) =>
-  e.addEventListener("click", () => {
-    inventory.classList.remove("hidden");
-  })
-);
-
-closeInventory.addEventListener("click", () => {
-  inventory.classList.add("hidden");
-});
 
 window.addEventListener("resize", () => {
   // window.location.reload()

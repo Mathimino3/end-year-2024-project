@@ -1,5 +1,4 @@
 <?php
-$scenes = json_decode(file_get_contents("./scenes.json"), true);
 $playerInfos = json_decode(file_get_contents("./player_infos.json"), true);
 
 //Get where the player is in the game
@@ -63,16 +62,18 @@ $haveBlocksBeenPlaced = in_array($currentScene, $playerInfos["sceneWhereBlocksPl
         <!-- &#160; is a blank space -->
         <div class="needed-items-to-place hidden">
             You need
-            <?php foreach ($sceneData["placeItems"] as $i => $item) : ?>
-                <?= $item["count"] ?>&#160
-                <span class="item-name-to-format"><?= $item["item"] ?></span><?= $item["count"] > 1 ? "s" : "" ?>
-                <img src="./assets/textures/<?= str_replace("minecraft:", "", $item["item"]) ?>.png" alt="">
-                <?php if ($i < count($sceneData["placeItems"]) - 2) {
-                    echo ",";
-                } elseif ($i === count($sceneData["placeItems"]) - 2) {
-                    echo "&#160and";
-                } ?>
-            <?php endforeach; ?>
+            <?php if (isset($sceneData["placeItems"])) {
+                foreach ($sceneData["placeItems"] as $i => $item) : ?>
+                    <?= $item["count"] ?>&#160
+                    <span class="item-name-to-format"><?= $item["item"] ?></span><?= $item["count"] > 1 ? "s" : "" ?>
+                    <img src="./assets/textures/<?= str_replace("minecraft:", "", $item["item"]) ?>.png" alt="">
+                    <?php if ($i < count($sceneData["placeItems"]) - 2) {
+                        echo ",";
+                    } elseif ($i === count($sceneData["placeItems"]) - 2) {
+                        echo "&#160and";
+                    } ?>
+            <?php endforeach;
+            } ?>
             &#160to place blocks
         </div>
 
@@ -92,16 +93,21 @@ $haveBlocksBeenPlaced = in_array($currentScene, $playerInfos["sceneWhereBlocksPl
         <img class="layer-outline-place layer-outline" src="<?php if (!$haveBlocksBeenPlaced) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png' ?>" alt="">
 
         <!-- the "chat" -->
-
         <div class="chat">
             <p><?php
                 //Check wich text to show. if the blocks have been broken and place show the right text
                 //if only broken show only broken   if only placed show only placed
-                //else show default text
-                if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced && isset($sceneData["chatTextBrokenAndPlaced"])) echo $sceneData["chatTextBrokenAndPlaced"];
-                elseif ($haveBlocksBeenBroken && isset($sceneData["chatTextBroken"])) echo $sceneData["chatTextBroken"];
-                elseif ($haveBlocksBeenPlaced && isset($sceneData["chatTextPlaced"])) echo $sceneData["chatTextPlaced"];
-                elseif (isset($sceneData["chatText"])) echo $sceneData["chatText"]
+                //else show default text ...
+                if (isset($_GET["talk"]) && $_GET["talk"]) {
+                    echo $sceneData["chatTextInteraction"];
+                } elseif (isset($sceneData["chatTextBroken"]) || isset($sceneData["chatTextPlaced"]) || isset($sceneData["chatTextBrokenAndPlaced"])) {
+                    if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced) echo $sceneData["chatTextBrokenAndPlaced"];
+                    elseif ($haveBlocksBeenBroken) echo $sceneData["chatTextBroken"];
+                    elseif ($haveBlocksBeenPlaced) echo $sceneData["chatTextPlaced"];
+                    elseif (isset($sceneData["chatText"])) echo $sceneData["chatText"];
+                } elseif (isset($sceneData["chatText"])) {
+                    echo $sceneData["chatText"];
+                }
                 ?></p>
         </div>
 
@@ -213,6 +219,8 @@ $haveBlocksBeenPlaced = in_array($currentScene, $playerInfos["sceneWhereBlocksPl
 <div class="variables hidden">
     <span class="current-region"><?= $currentRegion ?></span>
     <span class="current-scene"><?= $currentScene ?></span>
+
+    <span class="chat-text"><?= isset($sceneData["chatText"]) ? $sceneData["chatText"] : null ?></span>
 
     <span class="current-choices"><?= json_encode($sceneData["choices"]) ?></span>
 

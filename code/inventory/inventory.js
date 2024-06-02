@@ -3,6 +3,7 @@ import recipesBook from "./recipes.json" with { type: "json" };
 import tags from "./tags.json" with { type: "json" };
 
 //Creating the inventory
+const inventoryDiv = document.querySelector(".inventory");
 const inventoryGrid = document.querySelector(".inventory-grid"); //parrent of the inventory cells
 const craftContainer = document.querySelector(".craft-grid-container");
 const phpExecuter = document.querySelector(".php-executer"); //iframe that run php code
@@ -18,10 +19,21 @@ document.querySelectorAll("*").forEach((a) => {
 });
 
 //This isn't really related to the inventory but need the formatItemName() fct
-const itemNamesToFormat = document.querySelectorAll('.item-name-to-format');
-itemNamesToFormat.forEach((e)=>{
+const itemNamesToFormat = document.querySelectorAll(".item-name-to-format");
+itemNamesToFormat.forEach((e) => {
   e.innerText = formatItemName(e.innerText);
-})
+});
+
+document.querySelectorAll(".inventory-btn").forEach((e) =>
+  e.addEventListener("click", () => {
+    inventoryDiv.classList.remove("hidden");
+    updateAll();
+  })
+);
+
+document.querySelector(".close-inventory").addEventListener("click", () => {
+  inventoryDiv.classList.add("hidden");
+});
 
 function createInv() {
   //fct that (re)create the inventory
@@ -262,7 +274,13 @@ function setItemImage(img, itemName) {
       ""
     )}_front.png`;
     img.onerror = () => {
-      img.src = "../assets/textures/missing_texture.png";
+      img.src = `../assets/textures/${itemName.replace(
+        "minecraft:",
+        ""
+      )}_top.png`;
+      img.onerror = () => {
+        img.src = "../assets/textures/missing_texture.png";
+      };
     };
   };
 }
@@ -312,7 +330,7 @@ function takeItem(location, cellIndex, mouseBtn = null) {
   if (location === "resultCell" && mouseBtn === 0) {
     //Only take one item if left click and in resultCell
     amountToTake = 1;
-  }else if (mouseBtn === 2 && location !== "resultCell") {
+  } else if (mouseBtn === 2 && location !== "resultCell") {
     //Only take the half of the item if right click anywhere e
     amountToTake = Math.round(initialAmount / 2);
   }
@@ -501,24 +519,22 @@ updateAll();
 
 //Creating  tips for the user
 const inventoryTips = document.createElement("img");
-inventoryTips.src="../assets/img/inventory_tips.png";
-inventoryTips.classList.add("inventory-tips", "hidden")
+inventoryTips.src = "../assets/img/inventory_tips.png";
+inventoryTips.classList.add("inventory-tips", "hidden");
 document.querySelector(".inventory").appendChild(inventoryTips);
 
-const inventoryTipsBtn = document.createElement("span")
-inventoryTipsBtn.classList.add("inventory-tips-btn")
-inventoryTipsBtn.innerText = "Tips"
+const inventoryTipsBtn = document.createElement("span");
+inventoryTipsBtn.classList.add("inventory-tips-btn");
+inventoryTipsBtn.innerText = "Tips";
 document.querySelector(".inventory").appendChild(inventoryTipsBtn);
 
 //Handle inventoryTips display
-inventoryTipsBtn.addEventListener("mouseover", ()=>{
+inventoryTipsBtn.addEventListener("mouseover", () => {
   inventoryTips.classList.remove("hidden");
-})
-inventoryTipsBtn.addEventListener("mouseout", ()=>{
+});
+inventoryTipsBtn.addEventListener("mouseout", () => {
   inventoryTips.classList.add("hidden");
-})
-
-
+});
 
 //Crating///////////////////////////////////////////////////////////////
 
@@ -545,7 +561,7 @@ function checkCraft() {
           const rowItem = row[j];
           if (rowItem === inventory["craftTable"][rowNbr][j]["item"]) {
             //If the item from the recipe is === to the one in the craft =>
-              continue itemLoop; //check the next one
+            continue itemLoop; //check the next one
           } else if (
             typeof rowItem === "object" &&
             typeof rowItem["tag"] !== "undefined"

@@ -12,9 +12,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-decoration: none;
   font-family: "MinecraftRegular", sans-serif;
   color: #ffffff;
+  text-decoration: none;
   -webkit-user-drag: none;
   user-select: none;
 }
@@ -75,11 +75,16 @@ body::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1px;
   width: 45%;
+  /* display: none; */
 }
 
 .chat p {
-  font-size: 0.8rem;
+  font-size: auto;
   margin-left: 5px;
+}
+
+.chat p span {
+  text-decoration: underline;
 }
 
 .pin {
@@ -197,11 +202,13 @@ body::backdrop {
 .choices-btn {
   height: 100%;
   aspect-ratio: 31/9;
+  padding: 5px;
 }
 
 .choices-btn p {
   font-family: "MinecraftRegular", sans-serif;
   font-size: 1.3rem;
+  text-align: center;
 }
 
 @media (min-width: 1000px) {

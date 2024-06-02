@@ -36,7 +36,7 @@ choiceBtns.forEach((e, i) => {
       pin.classList.remove("hidden");
     });
     e.addEventListener("mouseout", () => {
-      // pin.classList.add("hidden");
+      pin.classList.add("hidden");
     });
   }
 });
@@ -138,4 +138,12 @@ function breakBlocks() {
 
 function placeBlocks() {
   window.location = `router.php?action=placeBlocks&region=${currentRegion}&scene=${currentScene}`;
+}
+
+// hiding the chat if it is empty
+if (
+  document.querySelector(".chat-text").innerText === "" ||
+  document.querySelector(".chat-text").innerText === null
+) {
+  document.querySelector(".chat").style.display = "none";
 }

@@ -1,0 +1,250 @@
+{
+  "village0": {
+    "chatText": "Welcome to the village!",
+
+    "choices": [
+      {
+        "text": "Go back to spawn",
+        "action": "router.php?action=changeScene&region=spawn&scene=spawn0"
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0",
+        "pinCoordinates": [41, 29]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0",
+        "pinCoordinates": [41, 29]
+      },
+      {
+        "text": "Go right",
+        "action": "?invOpen=true",
+        "pinCoordinates": [79, 32]
+      }
+    ]
+  },
+  "villageCrossroad0": {
+    "chatText": "Chose a direction.",
+
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go to the second blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "pinCoordinates": [1, 31]
+      },
+      {
+        "text": "Go to the hay bales",
+        "action": "router.php?action=changeScene&region=village&scene=spawnAfterTrees",
+        "pinCoordinates": [48, 27]
+      },
+      {
+        "text": "Go to the first blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith0Scene0",
+        "pinCoordinates": [68, 36]
+      }
+    ]
+  },
+  "villageBlacksmith0Scene0": {
+    "chatText": "Haaannn",
+    "chatTextInteraction": "<span>PNJ</span>: Hello traveler.",
+
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      },
+      {
+        "text": "Talk to the pnj",
+        "action": "?talk=true"
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith0Scene1",
+        "pinCoordinates": [62, 37]
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith0Scene1",
+        "pinCoordinates": [62, 37]
+      }
+    ]
+  },
+  "villageBlacksmith0Scene1": {
+    "breakItems": [
+      { "item": "minecraft:obsidian", "count": 4 },
+      { "item": "minecraft:bread", "count": 6 },
+      { "item": "minecraft:oak_planks", "count": 6 }
+    ],
+    "chatText": "Oooh.. what's that?",
+    "chatTextBroken": "<span>PNJ</span>: You teif!!",
+
+    "choices": [
+      {
+        "text": "Run back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      },
+      {
+        "text": "Run back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      },
+      {
+        "text": "Run back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      },
+      {
+        "text": "Run back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      }
+    ]
+  },
+  "villageBlacksmith1Front": {
+    "chatText": "Wow a second blacksmith.",
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Scene0",
+        "pinCoordinates": [27, 41]
+      },
+      {
+        "text": "Go in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Scene0",
+        "pinCoordinates": [27, 41]
+      },
+      {
+        "text": "Go to the hay bales",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBayle2",
+        "pinCoordinates": [88, 41]
+      }
+    ]
+  },
+  "villageBlacksmith1Scene0": {
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Scene1",
+        "pinCoordinates": [66, 37]
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Scene1",
+        "pinCoordinates": [66, 37]
+      }
+    ]
+  },
+  "villageBlacksmith1Scene1": {
+    "breakItems": [
+      { "item": "minecraft:iron_ingot", "count": 6 },
+      { "item": "minecraft:oak_sapling", "count": 4 },
+      { "item": "minecraft:apple", "count": 7 },
+      { "item": "minecraft:stone_sword", "count": 1 }
+    ],
+
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      }
+    ]
+  },
+  "villageHayBayle2": {
+    "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
+
+    "choices": [
+      {
+        "text": "Go back to the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth",
+        "pinCoordinates": [58, 20]
+      },
+      {
+        "text": "Go to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth",
+        "pinCoordinates": [58, 20]
+      }
+    ]
+  },
+  "villageCenterSouth": {
+    "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
+
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go the field",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrops0",
+        "pinCoordinates": [10, 40]
+      },
+      {
+        "text": "Go the field",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrops0",
+        "pinCoordinates": [10, 40]
+      },
+
+      {
+        "text": "Go to the wel",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "pinCoordinates": [46, 43]
+      }
+    ]
+  },
+  "villageCrops0": {
+    "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
+
+    "choices": [
+      {
+        "text": "Go back to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      }
+    ]
+  }
+}
