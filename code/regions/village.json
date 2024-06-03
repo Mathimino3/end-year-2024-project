@@ -188,12 +188,12 @@
         "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
       },
       {
-        "text": "Go to the center of the village",
+        "text": "Go up",
         "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth",
         "pinCoordinates": [58, 20]
       },
       {
-        "text": "Go to the center of the village",
+        "text": "Go up",
         "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth",
         "pinCoordinates": [58, 20]
       }
@@ -213,29 +213,53 @@
         "pinCoordinates": [10, 40]
       },
       {
-        "text": "Go the field",
-        "action": "router.php?action=changeScene&region=village&scene=villageCrops0",
-        "pinCoordinates": [10, 40]
+        "text": "Go to the well",
+        "action": "router.php?action=changeScene&region=village&scene=villageWell",
+        "pinCoordinates": [46, 43]
       },
-
       {
-        "text": "Go to the wel",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "text": "Go to the well",
+        "action": "router.php?action=changeScene&region=village&scene=villageWell",
         "pinCoordinates": [46, 43]
       }
     ]
   },
   "villageCrops0": {
-    "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
+    "breakItems": [
+      { "item": "minecraft:wheat", "count": 10 },
+      { "item": "minecraft:potato", "count": 4 },
+      { "item": "minecraft:minecraft:beetroot", "count": 3 },
+      { "item": "minecraft:minecraft:seed", "count": 17 }
+    ],
 
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      }
+    ]
+  },
+  "villageWell": {
     "choices": [
       {
         "text": "Go back to the center of the village",
         "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
       },
       {
-        "text": "Go back to the street",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+        "text": "Go back to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
       },
       {
         "text": "Go back to the street",

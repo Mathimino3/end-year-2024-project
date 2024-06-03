@@ -77,14 +77,21 @@ $haveBlocksBeenPlaced = in_array($currentScene, $playerInfos["sceneWhereBlocksPl
             &#160to place blocks
         </div>
 
-        <img class="gameplay-img" src="./assets/gameplay_img/<?php
-                                                                //Check wich img to show. if the blocks have been broken and place show the right img
-                                                                //if only broken show only broken   if only placed show only placed
-                                                                //else show default background
-                                                                if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced) echo $currentRegion . "/" . $currentScene . "BrokenAndPlaced";
-                                                                elseif ($haveBlocksBeenBroken) echo $currentRegion . "/" . $currentScene . "Broken";
-                                                                elseif ($haveBlocksBeenPlaced) echo $currentRegion . "/" . $currentScene . "Placed";
-                                                                else echo $currentRegion . "/" . $currentScene ?>.png">
+        <img class="gameplay-img" src="./assets/gameplay_img/
+        <?php
+        switch ($currentScene) {
+            case "villageWell":
+                require_once("./partials/villageWell.php");
+                break;
+        }
+
+        //Check wich img to show. if the blocks have been broken and place show the right img
+        //if only broken show only broken   if only placed show only placed
+        //else show default background
+        if ($haveBlocksBeenBroken && $haveBlocksBeenPlaced) echo $currentRegion . "/" . $currentScene . "BrokenAndPlaced";
+        elseif ($haveBlocksBeenBroken) echo $currentRegion . "/" . $currentScene . "Broken";
+        elseif ($haveBlocksBeenPlaced) echo $currentRegion . "/" . $currentScene . "Placed";
+        else echo $currentRegion . "/" . $currentScene ?>.png">
         <!-- The layer is where the interactable parts of the image are set -->
         <canvas class="layer-canvas"></canvas>
         <img class="img-layer" src="<?php if (file_exists('./assets/gameplay_img/' . $currentRegion . "/" . $currentScene . 'Layer.png')) echo './assets/gameplay_img/' . $currentRegion . "/" . $currentScene . 'Layer.png' ?>">
