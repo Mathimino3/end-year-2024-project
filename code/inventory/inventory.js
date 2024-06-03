@@ -587,7 +587,8 @@ function checkCraft() {
       //break recipeLoop lead to here
       if (isMatch === true) {
         //when we've check every items and they are all ===
-        return [mcItem["result"]["item"], getMinCount()];
+        const multiplier = typeof mcItem["result"]["count"] !== "undefined" ? mcItem["result"]["count"] : 1
+        return [mcItem["result"]["item"], getMinCount() * multiplier];
         //This line return [name of the item, count of the item]
       }
     }
@@ -622,8 +623,9 @@ function checkCraft() {
         }
       }
       if (isMatch === true) {
+        const multiplier = typeof mcItem["result"]["count"] !== "undefined" ? mcItem["result"]["count"] : 1
         //when we've check every items and they are all ===
-        return [mcItem["result"]["item"], getMinCount()];
+        return [mcItem["result"]["item"], getMinCount() * multiplier];
         //This line return [name of the item, count of the item]
       }
     }
