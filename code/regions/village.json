@@ -51,7 +51,7 @@
   },
   "villageBlacksmith0Scene0": {
     "chatText": "Haaannn",
-    "chatTextInteraction": "<span>PNJ</span>: Hello traveler.",
+    "chatTextInteraction": "<span>NPC</span>: Hello traveler.",
 
     "choices": [
       {
@@ -81,7 +81,7 @@
       { "item": "minecraft:oak_planks", "count": 6 }
     ],
     "chatText": "Oooh.. what's that?",
-    "chatTextBroken": "<span>PNJ</span>: You teif!!",
+    "chatTextBroken": "<span>NPC</span>: You teif!!",
 
     "choices": [
       {
@@ -200,6 +200,7 @@
     ]
   },
   "villageCenterSouth": {
+    "varients": true,
     "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
 
     "choices": [
@@ -252,6 +253,7 @@
     ]
   },
   "villageWell": {
+    "varients": true,
     "choices": [
       {
         "text": "Go back to the center of the village",
