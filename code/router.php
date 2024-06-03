@@ -17,7 +17,7 @@ switch ($action) {
         breakBlocks($playerInfos, $inventory, $regionJson, $_GET["region"], $_GET["scene"]);
         break;
     case "placeBlocks":
-        placeBlocks($playerInfos, $inventory, $regionJson, $_GET["region"], $_GET["scene"]);
+        placeBlocks($playerInfos, $inventory, $regionJson, $_GET["scene"]);
         break;
 }
 

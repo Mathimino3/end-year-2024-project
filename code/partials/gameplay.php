@@ -41,8 +41,9 @@
                                                                 echo "Placed";
                                                                 break;
                                                             case "varient":
+                                                                //If the scenes posses somes varients
                                                                 $requireLocation = "gameplayImgSrc";
-                                                                require_once($currentScene . ".php");
+                                                                require($currentRegion . "/" . $currentScene . ".php");
                                                                 break;
                                                         }
                                                         ?>.png">
@@ -52,6 +53,11 @@
 <!-- The outlines of the interactable parts hovering -->
 <img class="layer-outline-break layer-outline" src="<?php if ($sceneState !== "blocksBeenBroken" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png' ?>">
 <img class="layer-outline-place layer-outline" src="<?php if ($sceneState !== "blocksBeenPlaced" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png' ?>">
+
+<?php if ($sceneState === "varient") {
+    $requireLocation = "gameplayRoot";
+    require($currentRegion . "/" . $currentScene . ".php");
+} ?>
 
 <!-- the "chat" -->
 <div class="chat">

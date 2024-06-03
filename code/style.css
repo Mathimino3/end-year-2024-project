@@ -42,7 +42,7 @@ body::backdrop {
   height: 80%;
   position: relative;
   cursor: url("./assets/textures/diamond_pickaxe.png");
-}
+  }
 
 .gameplay-img {
   width: 100%;

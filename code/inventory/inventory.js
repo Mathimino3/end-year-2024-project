@@ -24,12 +24,13 @@ itemNamesToFormat.forEach((e) => {
   e.innerText = formatItemName(e.innerText);
 });
 
+//open inv btn
 document.querySelectorAll(".inventory-btn").forEach((e) =>
   e.addEventListener("click", () => {
     inventoryDiv.classList.remove("hidden");
     updateAll();
   })
-);
+)
 
 document.querySelector(".close-inventory").addEventListener("click", () => {
   inventoryDiv.classList.add("hidden");

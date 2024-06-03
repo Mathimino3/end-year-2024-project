@@ -39,7 +39,7 @@
       },
       {
         "text": "Go to the hay bales",
-        "action": "router.php?action=changeScene&region=village&scene=spawnAfterTrees",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBayle1",
         "pinCoordinates": [48, 27]
       },
       {
@@ -211,7 +211,7 @@
       {
         "text": "Go the field",
         "action": "router.php?action=changeScene&region=village&scene=villageCrops0",
-        "pinCoordinates": [10, 40]
+        "pinCoordinates": [10, 35]
       },
       {
         "text": "Go to the well",
@@ -244,11 +244,11 @@
       },
       {
         "text": "Go back to the street",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
       },
       {
-        "text": "Go back to the street",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+        "text": "Craft",
+        "action": "?invOpen=true"
       }
     ]
   },
@@ -256,19 +256,69 @@
     "varients": true,
     "choices": [
       {
-        "text": "Go back to the center of the village",
-        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
+        "text": "Go south",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth",
+        "pinCoordinates": [30, 29]
       },
       {
-        "text": "Go back to the center of the village",
-        "action": "router.php?action=changeScene&region=village&scene=villageCenterSouth"
+        "text": "Go east (to the start)",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterEast",
+        "pinCoordinates": [46, 80]
       },
       {
-        "text": "Go back to the street",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+        "text": "Go west",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "pinCoordinates": [46, -8]
       },
       {
-        "text": "Go back to the street",
+        "text": "Go north",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "pinCoordinates": [57, 31]
+      }
+    ]
+  },
+  "villageHayBayle1": {
+    "breakItems": [{ "item": "minecraft:hay_block", "count": 9 }],
+    "chatText": "Free food!",
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
+      },
+      {
+        "text": "Go to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterEast",
+        "pinCoordinates": [52, 26]
+      },
+      {
+        "text": "Go to the center of the village",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterEast",
+        "pinCoordinates": [52, 26]
+      }
+    ]
+  },
+  "villageCenterEast": {
+    "varients": true,
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBayle1"
+      },
+      {
+        "text": "Go to the well",
+        "action": "router.php?action=changeScene&region=village&scene=villageWell",
+        "pinCoordinates": [22, 44]
+      },
+      {
+        "text": "Go right",
         "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
       }
     ]

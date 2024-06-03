@@ -71,7 +71,7 @@ function addItemsToInv($inventory, $playerInfos, $items, $logRecentsItems = true
 }
 
 
-function placeBlocks($playerInfos, $inventory, $regionJson, $region, $scene)
+function placeBlocks($playerInfos, $inventory, $regionJson, $scene)
 {
     //Fct the add the current scene in the array sceneWhereBlocksPlaced and call another one to remove items from the inv
 

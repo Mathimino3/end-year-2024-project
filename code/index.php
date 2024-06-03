@@ -9,14 +9,7 @@ $regionJson = json_decode(file_get_contents("./regions/" . $currentRegion . ".js
 $sceneData = $regionJson[$currentScene];
 
 
-//Have the blocks that could be broken broken?
-$haveBlocksBeenBroken = in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"]) ? true : false;
-//Check if the current scene is in the list of the ones where the blocks have been broken
-
-//Have the blocks that could be placed placed?
-$haveBlocksBeenPlaced = in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"]) ? true : false;
-//Check if the current scene is in the list of the ones where the blocks have been placed
-
+//Knowing in wich "state" the current scene is in
 $sceneState = "default";
 if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"]) && in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
     $sceneState = "blocksBeenBrokenAndPlaced";
@@ -25,8 +18,8 @@ if (in_array($currentScene, $playerInfos["sceneWhereBlocksBroken"]) && in_array(
 } elseif (in_array($currentScene, $playerInfos["sceneWhereBlocksPlaced"])) {
     $sceneState = "blocksBeenPlaced";
 } elseif (isset($sceneData["varients"]) && $sceneData["varients"]) {
+    //If the scenes posses somes varients
     $sceneState = "varient";
-    // require_once("./partials/" . $currentScene . "Varients.php");
 }
 
 

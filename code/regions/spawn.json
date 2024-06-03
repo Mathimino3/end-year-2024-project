@@ -94,7 +94,7 @@
         "pinCoordinates": [23, 47]
       },
       {
-        "text": "Craft Items",
+        "text": "Craft",
         "action": "?invOpen=true"
       }
     ]
