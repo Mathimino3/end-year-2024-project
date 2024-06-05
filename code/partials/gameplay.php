@@ -54,20 +54,28 @@
 <img class="layer-outline-break layer-outline" src="<?php if ($sceneState !== "blocksBeenBroken" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png' ?>">
 <img class="layer-outline-place layer-outline" src="<?php if ($sceneState !== "blocksBeenPlaced" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png' ?>">
 
-<?php if ($sceneState === "varient") {
+<!-- if the scene has varients or it containe a mob  -->
+<?php if ($sceneState === "varient" || isset($sceneData["mob"])) {
     $requireLocation = "gameplayRoot";
     require($currentRegion . "/" . $currentScene . ".php");
+}
+
+//if we are in a fight
+if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && $playerInfos["mobFight"]) {
+    $requireLocation = "gameplayRoot";
+    require_once($currentRegion . "/fight/" . $sceneData["mob"] . "_fight.php");
 } ?>
 
 <!-- the "chat" -->
 <div class="chat">
     <p><?php
-        //Check wich text to show. if the blocks have been broken and place show the right text
-        //if only broken show only broken   if only placed show only placed
-        //else show default text ...
+        //If the npc is talking
         if (isset($_GET["talk"]) && $_GET["talk"]) {
             echo $sceneData["chatTextInteraction"];
         } elseif (isset($sceneData["chatTextBroken"]) || isset($sceneData["chatTextPlaced"]) || isset($sceneData["chatTextBrokenAndPlaced"])) {
+            //Check wich text to show. if the blocks have been broken and place show the right text
+            //if only broken show only broken   if only placed show only placed
+            //else show default text ...
             switch ($sceneState) {
                 case "blocksBeenBrokenAndPlaced":
                     echo $sceneData["chatTextBrokenAndPlaced"];
@@ -77,6 +85,9 @@
                     break;
                 case "blocksBeenPlaced":
                     echo $sceneData["chatTextPlaced"];
+                    break;
+                case "default":
+                    echo $sceneData["chatText"];
                     break;
             }
         } elseif (isset($sceneData["chatText"])) {

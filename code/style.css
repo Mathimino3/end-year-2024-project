@@ -41,8 +41,7 @@ body::backdrop {
   border-radius: 3px;
   height: 80%;
   position: relative;
-  cursor: url("./assets/textures/diamond_pickaxe.png");
-  }
+}
 
 .gameplay-img {
   width: 100%;
@@ -75,7 +74,6 @@ body::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1px;
   width: 45%;
-  /* display: none; */
 }
 
 .chat p {
@@ -305,6 +303,7 @@ body::backdrop {
   justify-content: space-around;
   align-items: center;
   border-radius: 10px;
+  z-index: 6;
 }
 
 .inventory.hidden {

@@ -81,7 +81,7 @@
       { "item": "minecraft:oak_planks", "count": 6 }
     ],
     "chatText": "Oooh.. what's that?",
-    "chatTextBroken": "<span>NPC</span>: You teif!!",
+    "chatTextBroken": "<span>NPC</span>: You thief!!",
 
     "choices": [
       {
@@ -201,12 +201,17 @@
   },
   "villageCenterSouth": {
     "varients": true,
+    "mob": "iron_golem",
     "breakItems": [{ "item": "minecraft:hay_block", "count": 5 }],
 
     "choices": [
       {
         "text": "Go back to village start",
         "action": "router.php?action=changeScene&region=village&scene=village0"
+      },
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBayle2"
       },
       {
         "text": "Go the field",
@@ -217,15 +222,12 @@
         "text": "Go to the well",
         "action": "router.php?action=changeScene&region=village&scene=villageWell",
         "pinCoordinates": [46, 43]
-      },
-      {
-        "text": "Go to the well",
-        "action": "router.php?action=changeScene&region=village&scene=villageWell",
-        "pinCoordinates": [46, 43]
       }
     ]
   },
   "villageCrops0": {
+    "chatText": "Harvest this field",
+    "chatTextBroken": "You have a green thumb!",
     "breakItems": [
       { "item": "minecraft:wheat", "count": 10 },
       { "item": "minecraft:potato", "count": 4 },
@@ -303,6 +305,7 @@
   },
   "villageCenterEast": {
     "varients": true,
+    "mob": "iron_golem",
     "choices": [
       {
         "text": "Go back to village start",
