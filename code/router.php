@@ -18,7 +18,7 @@ switch ($action) {
         placeBlocks($playerInfos, $inventory, $regionJson, $_GET["scene"]);
         break;
     case "fight":
-        $playerInfos["mobFight"] = true;
+        $playerInfos["mobFight"] = $playerInfos["mobFight"] ? $playerInfos["mobFight"] = false : $playerInfos["mobFight"] = true;
         file_put_contents('./player_infos.json', json_encode($playerInfos));
 
         break;

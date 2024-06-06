@@ -12,7 +12,7 @@ if ($sceneState === "varient") {
 }
 
 //Creating the iron golem btn
-if ($requireLocation === "gameplayRoot" && isset($sceneData["mob"]) && $sceneData["mob"] === "iron_golem" && !in_array("iron_golem", $playerInfos["defetedMobs"])) {
+if ($requireLocation === "gameplayRoot" && isset($sceneData["mob"]) && $sceneData["mob"] === "iron_golem" && !in_array("iron_golem", $playerInfos["defetedMobs"]) && !$playerInfos["mobFight"]) {
 
     require_once('iron_golem_looking.php');
 }

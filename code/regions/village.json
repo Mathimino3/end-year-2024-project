@@ -106,8 +106,8 @@
     "chatText": "Wow a second blacksmith.",
     "choices": [
       {
-        "text": "Go back to village start",
-        "action": "router.php?action=changeScene&region=village&scene=village0"
+        "text": "Go back ",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0"
       },
       {
         "text": "Go in the blacksmith",

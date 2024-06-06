@@ -1,6 +1,7 @@
 {
   "iron_golem": {
     "name": "Iron Golem",
-    "pv": 20
+    "pv": 20,
+    "speed": 5
   }
 }
