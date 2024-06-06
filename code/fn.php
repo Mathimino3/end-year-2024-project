@@ -127,3 +127,94 @@ function removeItemsFromInv($inventory, $playerInfos, $items)
     }
     return [$playerInfos, $done];
 }
+
+
+function attack($inventory, $playerInfos, $mobs, $damage, $scene)
+{
+    //Fct that remove pvs from the mob we are currently fighting
+    $playerInfos["mobPv"] = $playerInfos["mobPv"] - $damage;
+    if ($playerInfos["mobPv"] <= 0) {
+        //If the mob is dead
+        array_push($playerInfos["sceneFighted"], $scene);
+        array_push($playerInfos["defetedMobs"], $playerInfos["mob"]);
+        $playerInfos["mobFight"] = false;
+        $playerInfos["mobPv"] = null;
+        $playerInfos = addItemsToInv($inventory, $playerInfos, $mobs[$playerInfos["mob"]]["killItems"], true);
+        $playerInfos["mob"] = "";
+    }
+    file_put_contents('./player_infos.json', json_encode($playerInfos));
+}
+
+function getAttacked($playerInfos, $mobs, $damage, $scene)
+{
+    //Fct that remove pvs from the player
+    $playerInfos["playerPv"] = $playerInfos["playerPv"] - $damage;
+    if ($playerInfos["playerPv"] <= 0) {
+        //If we are dead
+        $playerInfos["mob"] = "";
+        $playerInfos["mobPv"] = null;
+        $playerInfos["mobFight"] = false;
+        $playerInfos = playerDie($playerInfos);
+    }
+    file_put_contents('./player_infos.json', json_encode($playerInfos));
+}
+
+function playerDie($playerInfos)
+{
+    //Fct taht kill the player
+    $playerInfos["playerDead"] = true;
+    return $playerInfos;
+}
+
+function resetAll($playerInfos, $inventory)
+{
+    //fct that put the game back to his original state
+
+    //reset player_infos.json
+    $playerInfos = array(
+        "currentRegion" => "",
+        "currentScene" => "",
+        "sceneWhereBlocksBroken" => [],
+        "sceneWhereBlocksPlaced" => [],
+        "recentlyObtainedItems" => [],
+        "recentlyLostItems" => [],
+        "droppedItems" => [],
+        "playerPv" => 20,
+        "playerDead" => false,
+        "warning" => "",
+        "mobFight" => false,
+        "mob" => "",
+        "mobPv" => null,
+        "sceneFighted" => [],
+        "defetedMobs" => []
+    );
+
+
+    //Clearing the inventory
+    foreach ($inventory["inventory"] as $cellIndex => $cell) {
+        if ($cell["item"] !== null || $cell["count"] !== 0) {
+            $inventory["inventory"][$cellIndex]["item"] = "";
+            $inventory["inventory"][$cellIndex]["count"] = 0;
+        }
+    }
+
+    //Clearing the crafting table
+    foreach ($inventory["craftTable"] as $rowNbr => $row) {
+        foreach ($row as $i => $rowItem)
+            if ($rowItem["item"] !== null || $rowItem["count"] !== 0) {
+                $inventory["craftTable"][$rowNbr][$i]["item"] = "";
+                $inventory["craftTable"][$rowNbr][$i]["count"] = 0;
+            }
+    }
+
+    //Clearing the mouse
+    $inventory["mouse"]["item"] = "";
+    $inventory["mouse"]["count"] = 0;
+
+    //Clearing the result cell
+    $inventory["resultCell"]["item"] = "";
+    $inventory["resultCell"]["count"] = 0;
+
+    file_put_contents('./player_infos.json', json_encode($playerInfos));
+    file_put_contents('./inventory/inventory.json', json_encode($inventory));
+}

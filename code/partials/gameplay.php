@@ -1,5 +1,10 @@
 <?php $playerInfos = json_decode(file_get_contents("./player_infos.json"), true);
-?>
+
+if ($playerInfos["playerDead"]) {
+    require_once("./partials/dead.php");
+} ?>
+
+
 
 
 <span class="gameplay-warning"><?= $playerInfos["warning"] ?></span>
@@ -54,14 +59,14 @@
 <img class="layer-outline-break layer-outline" src="<?php if ($sceneState !== "blocksBeenBroken" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlineBreak.png' ?>">
 <img class="layer-outline-place layer-outline" src="<?php if ($sceneState !== "blocksBeenPlaced" && file_exists('./assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png')) echo './assets/gameplay_img/' .  $currentRegion . "/" . $currentScene . 'OutlinePlace.png' ?>">
 
-<!-- if the scene has varients or it containe a mob  -->
-<?php if ($sceneState === "varient" || isset($sceneData["mob"])) {
+<!-- if the scene has varients or it contain a mob and this mob hasn't been beaten yet  -->
+<?php if ($sceneState === "varient" || (isset($sceneData["mob"]) && !in_array($sceneData["mob"], $playerInfos["defetedMobs"]))) {
     $requireLocation = "gameplayRoot";
     require($currentRegion . "/" . $currentScene . ".php");
 }
 
-//if we are in a fight
-if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && $playerInfos["mobFight"]) {
+//if we are in a fight and 
+if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && !in_array($currentScene, $playerInfos["sceneFighted"]) && $playerInfos["mobFight"]) {
     $requireLocation = "gameplayRoot";
     require_once($currentRegion . "/fight/" . $sceneData["mob"] . "_fight.php");
 } ?>
@@ -128,6 +133,9 @@ if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && $playerInfos["mobF
     file_put_contents('./player_infos.json', json_encode($playerInfos));
     ?>
 </div>
+
+<div class="player-health health">You: <?= $playerInfos["playerPv"] ?> <img src="./assets/img/heart.png"></div>
+
 
 <div class="destroy-animation hidden">
     <img src="" alt="">

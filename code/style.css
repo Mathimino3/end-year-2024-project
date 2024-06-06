@@ -71,7 +71,7 @@ body::backdrop {
   position: absolute;
   left: 0;
   bottom: 17%;
-  background-color: hwb(36 0% 0%);
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 1px;
   width: 45%;
 }
@@ -144,6 +144,25 @@ body::backdrop {
   right: 4px;
   display: flex;
   align-items: center;
+}
+
+.health {
+  margin: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health img {
+  height: 100%;
+  aspect-ratio: 1/1;
+  margin-left: 3px;
+}
+
+.player-health {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .destroy-animation img {

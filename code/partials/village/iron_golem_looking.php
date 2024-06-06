@@ -1,5 +1,5 @@
 <!-- Creating the iron golem btn -->
-<a class="iron-golem-looking-container" href="./router.php?action=fight&mob=golem">
+<a class="iron-golem-looking-container" href="./router.php?action=fighting&mob=golem">
   <img class="iron_golem_looking" src="../../assets/img/iron_golem_looking.png" />
   <img class="iron_golem_looking iron_golem_looking_outline" src="../../assets/img/iron_golem_lookingOutline.png" />
 </a>

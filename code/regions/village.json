@@ -269,7 +269,7 @@
       },
       {
         "text": "Go west",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest",
         "pinCoordinates": [46, -8]
       },
       {
@@ -323,6 +323,123 @@
       {
         "text": "Go right",
         "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+      }
+    ]
+  },
+  "villageCenterWest": {
+    "choices": [
+      {
+        "text": "Go back to the well",
+        "action": "router.php?action=changeScene&region=village&scene=villageWell"
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse1",
+        "pinCoordinates": [21, 38]
+      },
+      {
+        "text": "Go to the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith2Scene0",
+        "pinCoordinates": [57, 34]
+      },
+      {
+        "text": "Go right",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad1",
+        "pinCoordinates": [39, 35]
+      }
+    ]
+  },
+  "villageBlacksmith2Scene0": {
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith2Scene1",
+        "pinCoordinates": [65, 34]
+      },
+      {
+        "text": "Enter in the blacksmith",
+        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith2Scene1",
+        "pinCoordinates": [65, 34]
+      }
+    ]
+  },
+  "villageBlacksmith2Scene1": {
+    "breakItems": [
+      { "item": "minecraft:apple", "count": 3 },
+      { "item": "minecraft:iron_boots", "count": 1 }
+    ],
+
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      }
+    ]
+  },
+  "villageHouse1": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      }
+    ]
+  },
+  "villageCrossroad1": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest"
+      },
+      {
+        "text": "Go back to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest",
+        "pinCoordinates": [14, 53]
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest",
+        "pinCoordinates": [49, 49]
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterWest",
+        "pinCoordinates": [87, 55]
       }
     ]
   }
