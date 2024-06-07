@@ -18,9 +18,9 @@
         "pinCoordinates": [41, 29]
       },
       {
-        "text": "Go right",
-        "action": "?invOpen=true",
-        "pinCoordinates": [79, 32]
+        "text": "Go to the hay bales",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBale0",
+        "pinCoordinates": [75, 18]
       }
     ]
   },
@@ -310,7 +310,7 @@
         "action": "router.php?action=changeScene&region=village&scene=village0"
       },
       {
-        "text": "Go back",
+        "text": "Go back to the hay bayles",
         "action": "router.php?action=changeScene&region=village&scene=villageHayBayle1"
       },
       {
@@ -320,7 +320,8 @@
       },
       {
         "text": "Go right",
-        "action": "router.php?action=changeScene&region=village&scene=villageBlacksmith1Front"
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad6",
+        "pinCoordinates": [80, 54]
       }
     ]
   },
@@ -332,7 +333,7 @@
       },
       {
         "text": "Go to the house",
-        "action": "router.php?action=changeScene&region=village&scene=villageHouse1",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse0",
         "pinCoordinates": [21, 38]
       },
       {
@@ -394,7 +395,7 @@
       }
     ]
   },
-  "villageHouse1": {
+  "villageHouse0": {
     "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
 
     "choices": [
@@ -426,7 +427,7 @@
       },
       {
         "text": "Go to the house",
-        "action": "router.php?action=changeScene&region=village&scene=villageHouse2",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse1",
         "pinCoordinates": [14, 53]
       },
       {
@@ -441,7 +442,7 @@
       }
     ]
   },
-  "villageHouse2": {
+  "villageHouse1": {
     "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
 
     "choices": [
@@ -520,8 +521,7 @@
       },
       {
         "text": "Climb back down to the first floor",
-        "action": "router.php?action=changeScene&region=village&scene=villageChurchScene1",
-        "pinCoordinates": [69, 1]
+        "action": "router.php?action=changeScene&region=village&scene=villageChurchScene1"
       },
       {
         "text": "Jump",
@@ -537,6 +537,10 @@
     "varients": true,
     "choices": [
       {
+        "text": "Go back to the well",
+        "action": "router.php?action=changeScene&region=village&scene=villageWell"
+      },
+      {
         "text": "Go left",
         "action": "router.php?action=changeScene&region=village&scene=villageStairs0",
         "pinCoordinates": [19, 44]
@@ -550,10 +554,6 @@
         "text": "Go the the field",
         "action": "router.php?action=changeScene&region=village&scene=villageCrops1",
         "pinCoordinates": [44, 44]
-      },
-      {
-        "text": "Go back to the well",
-        "action": "router.php?action=changeScene&region=village&scene=villageWell"
       }
     ]
   },
@@ -589,13 +589,13 @@
     "choices": [
       {
         "text": "Go up",
-        "action": "router.php?action=changeScene&region=village&scene=villageCenterNorth&condition=true&choice=0",
-        "condition": "if (!in_array('villageStairs0', $playerInfos['sceneWhereBlocksPlaced'])) {print_r('boo'); return;}"
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up&condition=true&choice=0",
+        "condition": "if (!in_array('villageStairs0', $playerInfos['sceneWhereBlocksPlaced'])) {print_r('boo'); $continue = false;;}"
       },
       {
         "text": "Go up",
-        "action": "router.php?action=changeScene&region=village&scene=villageCenterNorth&condition=true&choice=1",
-        "condition": ""
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up&condition=true&choice=1",
+        "condition": "if (!in_array('villageStairs0', $playerInfos['sceneWhereBlocksPlaced'])) {print_r('boo'); $continue = false;;}"
       },
       {
         "text": "Go back",
@@ -604,6 +604,387 @@
       {
         "text": "Go back",
         "action": "router.php?action=changeScene&region=village&scene=villageCenterNorth"
+      }
+    ]
+  },
+  "villageStairs0Up": {
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0"
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse2",
+        "pinCoordinates": [17, 37]
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse2",
+        "pinCoordinates": [17, 37]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageAfterStairs0",
+        "pinCoordinates": [48, 25]
+      }
+    ]
+  },
+  "villageHouse2": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up"
+      }
+    ]
+  },
+  "villageAfterStairs0": {
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageStairs0Up"
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2",
+        "pinCoordinates": [48, 35]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2",
+        "pinCoordinates": [48, 35]
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse3",
+        "pinCoordinates": [61, 26]
+      }
+    ]
+  },
+  "villageCrossroad2": {
+    "varients": true,
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageAfterStairs0",
+        "pinCoordinates": [67, 52]
+      },
+      {
+        "text": "Go to the small house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse3",
+        "pinCoordinates": [16, 25]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3",
+        "pinCoordinates": [32, 33]
+      },
+      {
+        "text": "Go to the big house",
+        "action": "router.php?action=changeScene&region=village&scene=villageBigHouse0",
+        "pinCoordinates": [67, 52]
+      }
+    ]
+  },
+  "villageHouse3": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      }
+    ]
+  },
+  "villageBigHouse0": {
+    "breakItems": [
+      { "item": "minecraft:yellow_bed", "count": 1 },
+      { "item": "minecraft:apple", "count": 3 },
+      { "item": "minecraft:diamond", "count": 2 },
+      { "item": "minecraft:golden_carrot", "count": 5 }
+    ],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      }
+    ]
+  },
+  "villageCrossRoad3": {
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad2"
+      },
+      {
+        "text": "Go left",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4",
+        "pinCoordinates": [29, 36]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterNorth",
+        "pinCoordinates": [53, 32]
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse4",
+        "pinCoordinates": [78, 47]
+      }
+    ]
+  },
+  "villageHouse4": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3"
+      }
+    ]
+  },
+  "villageCrossRoad4": {
+    "choices": [
+      {
+        "text": "Go back",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad3"
+      },
+      {
+        "text": "Go up to the field",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrops2",
+        "pinCoordinates": [27, 7]
+      },
+      {
+        "text": "Go up to the field",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrops2",
+        "pinCoordinates": [27, 7]
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse5",
+        "pinCoordinates": [48, 40]
+      }
+    ]
+  },
+  "villageHouse5": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      }
+    ]
+  },
+  "villageCrops2": {
+    "breakItems": [
+      { "item": "minecraft:wheat", "count": 10 },
+      { "item": "minecraft:potato", "count": 4 },
+      { "item": "minecraft:beetroot", "count": 3 },
+      { "item": "minecraft:wheat_seeds", "count": 17 }
+    ],
+
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0",
+        "pinCoordinates": [54, 33]
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad4"
+      }
+    ]
+  },
+
+  "villageHayBale0": {
+    "breakItems": [{ "item": "minecraft:hay_block", "count": 12 }],
+
+    "choices": [
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0",
+        "pinCoordinates": [7, 60]
+      },
+      {
+        "text": "Go back to village start",
+        "action": "router.php?action=changeScene&region=village&scene=village0",
+        "pinCoordinates": [7, 60]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad5",
+        "pinCoordinates": [55, 38]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad5",
+        "pinCoordinates": [55, 38]
+      }
+    ]
+  },
+  "villageCrossRoad5": {
+    "varients": true,
+    "choices": [
+      {
+        "text": "Go back ",
+        "action": "router.php?action=changeScene&region=village&scene=villageHayBale0"
+      },
+      {
+        "text": "Go left",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossroad0",
+        "pinCoordinates": [14, 38]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad6",
+        "pinCoordinates": [54, 33]
+      },
+      {
+        "text": "Go straight",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad6",
+        "pinCoordinates": [54, 33]
+      }
+    ]
+  },
+  "villageCrossRoad6": {
+    "varients": true,
+    "choices": [
+      {
+        "text": "Go back ",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad5"
+      },
+      {
+        "text": "Go left",
+        "action": "router.php?action=changeScene&region=village&scene=villageCenterEast",
+        "pinCoordinates": [13, 38]
+      },
+      {
+        "text": "Go right",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front",
+        "pinCoordinates": [64, 46]
+      },
+      {
+        "text": "Go right",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front",
+        "pinCoordinates": [64, 46]
+      }
+    ]
+  },
+  "villageHouse6Front": {
+    "choices": [
+      {
+        "text": "Go back ",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad6"
+      },
+      {
+        "text": "Go back ",
+        "action": "router.php?action=changeScene&region=village&scene=villageCrossRoad6"
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6",
+        "pinCoordinates": [52, 32]
+      },
+      {
+        "text": "Go to the house",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6",
+        "pinCoordinates": [52, 32]
+      }
+    ]
+  },
+  "villageHouse6": {
+    "breakItems": [{ "item": "minecraft:yellow_bed", "count": 1 }],
+    "choices": [
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front"
+      },
+      {
+        "text": "Go back to the street",
+        "action": "router.php?action=changeScene&region=village&scene=villageHouse6Front"
       }
     ]
   }

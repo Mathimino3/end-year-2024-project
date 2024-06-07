@@ -1,7 +1,7 @@
 {
   "spawn0": {
     "backgroundImg": "spawn0",
-    "chatText": "Welcome to Minicraft!",
+    "chatText": "Welcome to Minicraft! (a work in progress)",
     "choices": [
       {
         "text": "Go to the village",

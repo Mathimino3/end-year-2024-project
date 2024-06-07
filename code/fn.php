@@ -2,10 +2,15 @@
 
 function changeScene($playerInfos, $regionJson, $region, $scene, $die = null, $condition = null, $choice = null)
 {
-
+    $continue = true;
     if ($condition !== null && $choice !== null) {
         print_r($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
         eval($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
+        if ($continue === false) {
+            $playerInfos["warning"] = "You can't go there yet!";
+            file_put_contents('./player_infos.json', json_encode($playerInfos));
+            return;
+        }
     }
     //if we need to kill the player
     if ($die) {
@@ -200,31 +205,90 @@ function resetAll($playerInfos, $inventory)
         "defetedMobs" => []
     );
 
-
+    //reseting inventory.json
+    $inventory = array(
+        "inventory" => [
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0),
+            array("item" => "", "count" => 0)
+        ],
+        "mouse" => array("item" => "", "count" => 0),
+        "craftTable" => [
+            [
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0)
+            ],
+            [
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0)
+            ],
+            [
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0),
+                array("item" => "", "count" => 0)
+            ]
+        ],
+        "resultCell" => array("0" => array("item" => "", "count" => 0), "item" => "", "count" => 0)
+    );
     //Clearing the inventory
-    foreach ($inventory["inventory"] as $cellIndex => $cell) {
-        if ($cell["item"] !== null || $cell["count"] !== 0) {
-            $inventory["inventory"][$cellIndex]["item"] = "";
-            $inventory["inventory"][$cellIndex]["count"] = 0;
-        }
-    }
+    // foreach ($inventory["inventory"] as $cellIndex => $cell) {
+    //     if ($cell["item"] !== null || $cell["count"] !== 0) {
+    //         $inventory["inventory"][$cellIndex]["item"] = "";
+    //         $inventory["inventory"][$cellIndex]["count"] = 0;
+    //     }
+    // }
 
-    //Clearing the crafting table
-    foreach ($inventory["craftTable"] as $rowNbr => $row) {
-        foreach ($row as $i => $rowItem)
-            if ($rowItem["item"] !== null || $rowItem["count"] !== 0) {
-                $inventory["craftTable"][$rowNbr][$i]["item"] = "";
-                $inventory["craftTable"][$rowNbr][$i]["count"] = 0;
-            }
-    }
+    // //Clearing the crafting table
+    // foreach ($inventory["craftTable"] as $rowNbr => $row) {
+    //     foreach ($row as $i => $rowItem)
+    //         if ($rowItem["item"] !== null || $rowItem["count"] !== 0) {
+    //             $inventory["craftTable"][$rowNbr][$i]["item"] = "";
+    //             $inventory["craftTable"][$rowNbr][$i]["count"] = 0;
+    //         }
+    // }
 
-    //Clearing the mouse
-    $inventory["mouse"]["item"] = "";
-    $inventory["mouse"]["count"] = 0;
+    // //Clearing the mouse
+    // $inventory["mouse"]["item"] = "";
+    // $inventory["mouse"]["count"] = 0;
 
-    //Clearing the result cell
-    $inventory["resultCell"]["item"] = "";
-    $inventory["resultCell"]["count"] = 0;
+    // //Clearing the result cell
+    // $inventory["resultCell"]["item"] = "";
+    // $inventory["resultCell"]["count"] = 0;
 
     file_put_contents('./player_infos.json', json_encode($playerInfos));
     file_put_contents('./inventory/inventory.json', json_encode($inventory));

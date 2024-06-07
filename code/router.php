@@ -39,4 +39,4 @@ switch ($action) {
         break;
 }
 
-// header('Location: /');
+header('Location: /');

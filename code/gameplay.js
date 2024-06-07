@@ -36,7 +36,7 @@ choiceBtns.forEach((e, i) => {
       pin.classList.remove("hidden");
     });
     e.addEventListener("mouseout", () => {
-      // pin.classList.add("hidden");
+      pin.classList.add("hidden");
     });
   }
 });
