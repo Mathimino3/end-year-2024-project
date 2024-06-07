@@ -3,11 +3,14 @@
 function changeScene($playerInfos, $regionJson, $region, $scene, $die = null, $condition = null, $choice = null)
 {
     $continue = true;
+    //If there is a condition to continue
     if ($condition !== null && $choice !== null) {
-        print_r($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
+        //executing tthe condition code
         eval($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
+        // if we can't continue
         if ($continue === false) {
-            $playerInfos["warning"] = "You can't go there yet!";
+            //Show tthe waring message
+            $playerInfos["warning"] = $regionJson[$playerInfos["currentScene"]]["warning"];
             file_put_contents('./player_infos.json', json_encode($playerInfos));
             return;
         }

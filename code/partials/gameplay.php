@@ -113,7 +113,7 @@ if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && !in_array($current
         <div class="recent-items-content">
             <!-- &#160; is a blank space -->
             - <?= $i["count"] ?>&#160;
-            <span class="item-name-to-format"><?= $i["item"] ?></span>
+            <span class="item-name-to-format"><?= $i["item"] ?></span>&#160;
             <img src="./assets/textures/<?= str_replace("minecraft:", "", $i["item"]) ?>.png" alt="">
         </div>
     <?php endforeach;
@@ -122,7 +122,7 @@ if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && !in_array($current
         <div class="recent-items-content">
             <!-- &#160; is a blank space -->
             + <?= $i["count"] ?>&#160;
-            <span class="item-name-to-format"><?= $i["item"] ?></span>
+            <span class="item-name-to-format"><?= $i["item"] ?></span>&#160;
             <img src="./assets/textures/<?= str_replace("minecraft:", "", $i["item"]) ?>.png" alt="">
         </div>
     <?php
@@ -135,8 +135,3 @@ if (isset($sceneData["mob"]) && $sceneData["mob"] !== null && !in_array($current
 </div>
 
 <div class="player-health health">You: <?= $playerInfos["playerPv"] ?> <img src="./assets/img/heart.png"></div>
-
-
-<div class="destroy-animation hidden">
-    <img src="" alt="">
-</div>

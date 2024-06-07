@@ -74,10 +74,6 @@ function checkPixelColor(x, y) {
   return `${imageData[0]}, ${imageData[1]}, ${imageData[2]}`;
 }
 
-const destroyAnimation = document.querySelector(".destroy-animation");
-const destroyAnimationImg = document.querySelector(".destroy-animation img");
-destroyAnimationImg.src = "./assets/destroy_stages/destroy_stage_0.png";
-
 const layerOutlineBreak = document.querySelector(".layer-outline-break");
 const layerOutlinePlace = document.querySelector(".layer-outline-place");
 

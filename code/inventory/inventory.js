@@ -30,7 +30,7 @@ document.querySelectorAll(".inventory-btn").forEach((e) =>
     inventoryDiv.classList.remove("hidden");
     updateAll();
   })
-)
+);
 
 document.querySelector(".close-inventory").addEventListener("click", () => {
   inventoryDiv.classList.add("hidden");
@@ -325,13 +325,16 @@ function takeItem(location, cellIndex, mouseBtn = null) {
     initialAmount = inventory[location][cellIndex]["count"];
     itemInCell = inventory[location][cellIndex]["item"];
   }
-
   //The amount of item we are taking
   let amountToTake = initialAmount;
+  //If in resultCell
   if (location === "resultCell" && mouseBtn === 0) {
-    //Only take one item if left click and in resultCell
-    amountToTake = 1;
-  } else if (mouseBtn === 2 && location !== "resultCell") {
+    //Only take one craft result if left click in resultcell
+    amountToTake =
+      recipesBook[inventory["resultCell"]["0"]["item"]]["result"]["count"] || 1; //(the nbr of crafts we can do)
+  }
+
+  if (mouseBtn === 2 && location !== "resultCell") {
     //Only take the half of the item if right click anywhere e
     amountToTake = Math.round(initialAmount / 2);
   }
@@ -360,10 +363,14 @@ function takeItem(location, cellIndex, mouseBtn = null) {
 }
 
 function removeItemsFromTable(amountToTake) {
-  //Fcr the remove the items that have been used when crafting
+  //Fct the remove the items that have been used when crafting
+  //The nbr of crafts we can do
+  const nbrOfCraft =
+    recipesBook[inventory["resultCell"]["0"]["item"]]["result"]["count"] || 1;
   inventory["craftTable"].forEach((row, rowIndex) => {
     row.forEach((rowItem, rowItemIndex) => {
-      const newAmount = rowItem["count"] - amountToTake;
+      //The new amount in the cell
+      const newAmount = rowItem["count"] - amountToTake / nbrOfCraft;
       if (newAmount > 0) {
         inventory["craftTable"][rowIndex][rowItemIndex]["count"] = newAmount;
       } else {
@@ -540,6 +547,7 @@ inventoryTipsBtn.addEventListener("mouseout", () => {
 //Crating///////////////////////////////////////////////////////////////
 
 function checkCraft() {
+  // Fctt that check wich craft correspond to the current items in the crafting table
   const itemsInTable = getItemsInTable();
   recipeLoop: for (let i = 0; i < recipeKeys.length; i++) {
     const itemKey = recipeKeys[i];
@@ -588,7 +596,10 @@ function checkCraft() {
       //break recipeLoop lead to here
       if (isMatch === true) {
         //when we've check every items and they are all ===
-        const multiplier = typeof mcItem["result"]["count"] !== "undefined" ? mcItem["result"]["count"] : 1
+        const multiplier =
+          typeof mcItem["result"]["count"] !== "undefined"
+            ? mcItem["result"]["count"]
+            : 1;
         return [mcItem["result"]["item"], getMinCount() * multiplier];
         //This line return [name of the item, count of the item]
       }
@@ -624,7 +635,10 @@ function checkCraft() {
         }
       }
       if (isMatch === true) {
-        const multiplier = typeof mcItem["result"]["count"] !== "undefined" ? mcItem["result"]["count"] : 1
+        const multiplier =
+          typeof mcItem["result"]["count"] !== "undefined"
+            ? mcItem["result"]["count"]
+            : 1;
         //when we've check every items and they are all ===
         return [mcItem["result"]["item"], getMinCount() * multiplier];
         //This line return [name of the item, count of the item]

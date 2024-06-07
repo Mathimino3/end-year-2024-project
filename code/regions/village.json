@@ -585,6 +585,7 @@
   },
   "villageStairs0": {
     "choicesCondition": true,
+    "warning": "You can't go there yet!",
     "placeItems": [{ "item": "minecraft:oak_stairs", "count": 3 }],
     "choices": [
       {
