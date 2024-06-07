@@ -29,7 +29,7 @@ if ($playerInfos["playerDead"]) {
             } ?>
     <?php endforeach;
     } ?>
-    &#160to place blocks
+    &#160to place those blocks
 </div>
 
 <img class="gameplay-img" src="./assets/gameplay_img/<?php

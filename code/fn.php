@@ -1,10 +1,20 @@
 <?php
 
-function changeScene($playerInfos, $region, $scene)
+function changeScene($playerInfos, $regionJson, $region, $scene, $die = null, $condition = null, $choice = null)
 {
+
+    if ($condition !== null && $choice !== null) {
+        print_r($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
+        eval($regionJson[$playerInfos["currentScene"]]["choices"][$choice]["condition"]);
+    }
+    //if we need to kill the player
+    if ($die) {
+        $playerInfos = playerDie($playerInfos);
+    }
     //Fct that change the scene to a specified one
     $playerInfos["currentRegion"] = $region;
     $playerInfos["currentScene"] = $scene;
+
     file_put_contents('./player_infos.json', json_encode($playerInfos));
 }
 
@@ -151,6 +161,7 @@ function getAttacked($playerInfos, $mobs, $damage, $scene)
     $playerInfos["playerPv"] = $playerInfos["playerPv"] - $damage;
     if ($playerInfos["playerPv"] <= 0) {
         //If we are dead
+        $playerInfos["playerPv"] = 0;
         $playerInfos["mob"] = "";
         $playerInfos["mobPv"] = null;
         $playerInfos["mobFight"] = false;

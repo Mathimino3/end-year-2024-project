@@ -11,7 +11,7 @@ $action = $_GET['action'];
 
 switch ($action) {
     case "changeScene":
-        changeScene($playerInfos, $_GET["region"], $_GET["scene"]);
+        changeScene($playerInfos, $regionJson, $_GET["region"], $_GET["scene"], $_GET["die"], $_GET["condition"], $_GET["choice"]);
         break;
     case "breakBlocks":
         breakBlocks($playerInfos, $inventory, $regionJson, $_GET["region"], $_GET["scene"]);
@@ -39,4 +39,4 @@ switch ($action) {
         break;
 }
 
-header('Location: /');
+// header('Location: /');
