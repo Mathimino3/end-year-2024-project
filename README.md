@@ -2,7 +2,7 @@
 
 End year project of 2024
 **Not finished**
-MINICRAFT
 
+MINICRAFT
 A choice based game about Minecraft.
 A work in progresss.
